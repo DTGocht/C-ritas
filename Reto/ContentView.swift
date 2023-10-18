@@ -1,21 +1,38 @@
 //
 //  ContentView.swift
-//  Reto
+//  reto_noEntregados
 //
-//  Created by Jimena Gallegos on 13/10/23.
+//  Created by Jimena Gallegos on 11/10/23.
 //
 
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        TabView{
+            Recibos_Pendientes_View()
+                .tabItem{
+                    Label("Pendientes",systemImage: "house.circle")
+                }
+            Recibos_Cobrados_View()
+                .tabItem{
+                    Label("Cobrados", systemImage: "doc.richtext.fill")
+                }
+            Recibos_No_Cobrados_View()
+                .tabItem{
+                    Label("No cobrados", systemImage: "doc.richtext.fill")
+                }
+            
         }
-        .padding()
+        .tint(Color("PantoneAC"))
+        //sirve para cambiar el background del nav bar
+        /*
+         .onAppear(){
+         UITabBar.appearance().barTintColor = UIColor(Color("PantoneGC"))
+         UITabBar.appearance().backgroundColor = UIColor(Color("PantoneGC"))
+         }
+         */
+             
     }
 }
 
