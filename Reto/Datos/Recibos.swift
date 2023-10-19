@@ -7,21 +7,55 @@
 
 import Foundation
 
-struct Recibos: Codable, Identifiable{
-    var BITACORA: Int
-    var DONANTE_APELLIDOM: String
-    var DONANTE_APELLIDOP: String
-    var DONANTE_COL: String
-    var DONANTE_CP: String
-    var DONANTE_DIR: String
-    var DONANTE_MUN: String
-    var DONANTE_NOMBRE: String
-    var DONANTE_TELCASA: String
-    var DONANTE_TELMOV: String
-    var ESTATUS: String
-    var IMPORTE: Double
-    var REPARTIDOR_ID: Int
-    var id: Int{
-        return self.BITACORA
+var listaRecibos = getRecibos()
+
+func getRecibos() -> Array<Recibos>{
+    var pendientesList: Array<Recibos> = []
+    
+    guard let url = URL(string:"http://10.22.199.153:8082/recibosRecolector/1") else {
+        print("No pude asignar el URL del API")
+        return pendientesList
     }
+    
+    let group = DispatchGroup()
+    group.enter()
+    
+    let task = URLSession.shared.dataTask(with: url) {
+        data, response, error in
+        
+        let jsonDecoder = JSONDecoder()
+        if (data != nil){
+            do {
+                pendientesList = try jsonDecoder.decode([Recibos].self, from: data!)
+            } catch {
+                print(error)
+            }
+            group.leave()
+        }
+    }
+    
+    task.resume()
+    group.wait()
+    print("******** saliendo de la función")
+    return pendientesList
+}
+
+
+struct Recibos: Codable, Identifiable{
+    var ApellidoMaterno: String
+    var ApellidoPaterno: String
+    var CP: String
+    var Colonia: String
+    var Direccion: String
+    var Estatus: String
+    var Importe: Float
+    var Municipio: String
+    var NombreDonante: String
+    var Referencias: String
+    var TelCasa: String
+    var TelMovil: String
+    var TelOficina: String
+    var id: Int
+    var idRecolector: Int
+    var Referencia: String
 }

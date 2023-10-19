@@ -10,9 +10,9 @@ import SwiftUI
 struct Tarjeta_Acumulado: View {
 
     let totalCantidad = listaRecibos
-            .filter { $0.ESTATUS == "Cobrado" && $0.REPARTIDOR_ID == 1}
+            .filter { $0.Estatus == "Cobrado"}
             .reduce(0) { (result, recibo) in
-                return result + recibo.IMPORTE
+                return result + recibo.Importe
             }
     
     var body: some View {
@@ -32,6 +32,7 @@ struct Tarjeta_Acumulado: View {
                         .font(.title)
                         .fontWeight(.semibold)
                         .foregroundColor(Color(red: 0.03, green: 0.347, blue: 0.545))
+                     
                 }
             }
         }

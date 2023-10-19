@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Recibos_Cobrados_View: View {
     
-    @State var listaRecibos = getRecibos()
+    @State var listaRecibos: Array<Recibos> = []
     @State var listaRepartidores = getRepartidores()
     @State var id = 1
     
@@ -22,11 +22,16 @@ struct Recibos_Cobrados_View: View {
                     .fontWeight(.bold)
                     .frame(width: 350, alignment: .leading)
                 List {
-                    ForEach(listaRecibos.filter{$0.ESTATUS == "Cobrado" && $0.REPARTIDOR_ID == id}) { recibo in
+                    ForEach(listaRecibos.filter{$0.Estatus == "Cobrado" && $0.idRecolector == id}) { recibo in
                         Recibos_Lista(recibo: recibo)
                     }
                 }
                 .listStyle(.inset)
+                
+                .onAppear(){
+                    listaRecibos = getRecibos()
+                }
+                
                 HStack{
                     Tarjeta_Acumulado()
                     Tarjeta_Status(repatidor: listaRepartidores[id-1])

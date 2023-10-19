@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Recibos_No_Cobrados_View: View {
-    @State var listaRecibos = getRecibos()
+    @State var listaRecibos: Array<Recibos> = []
     @State var listaRepartidores = getRepartidores()
     @State var id = 1
     
@@ -22,13 +22,15 @@ struct Recibos_No_Cobrados_View: View {
                     .fontWeight(.bold)
                     .frame(width: 350, alignment: .leading)
                 List {
-                    ForEach(listaRecibos.filter{$0.ESTATUS == "No Cobrado" && $0.REPARTIDOR_ID == id}) { recibo in
+                    ForEach(listaRecibos.filter{$0.Estatus == "No Cobrado" && $0.idRecolector == id}) { recibo in
                         Recibos_Lista(recibo: recibo)
                     }
                     .onMove(perform: moveRecibo)
                 }
                 .listStyle(.inset)
-                
+                .onAppear(){
+                    listaRecibos = getRecibos()
+                }
                 Spacer()
             } .padding()
             }

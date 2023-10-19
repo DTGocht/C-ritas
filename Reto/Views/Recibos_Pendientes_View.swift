@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Recibos_Pendientes_View: View {
-    @State var listaRecibos = getRecibos()
+    @State var listaRecibos: Array<Recibos> = []
     @State var listaRepartidores = getRepartidores()
     @State var id = 1
     
@@ -22,7 +22,7 @@ struct Recibos_Pendientes_View: View {
                     .fontWeight(.bold)
                     .frame(width: 350, alignment: .leading)
                 List {
-                    ForEach(listaRecibos.filter { $0.ESTATUS == "Pendiente" && $0.REPARTIDOR_ID == id }) { recibo in
+                    ForEach(listaRecibos.filter { $0.Estatus == "Pendiente" && $0.idRecolector == id}) { recibo in
                         NavigationLink(destination: Donante_View(donador: recibo.id)) {
                             Recibos_Lista(recibo: recibo)
                         }
@@ -30,8 +30,9 @@ struct Recibos_Pendientes_View: View {
                     .onMove(perform: moveRecibo)
                 }
                 .listStyle(.inset)
+                .onAppear(){
+                    listaRecibos = getRecibos()}
                 .navigationBarItems(trailing: EditButton())
-
                 
                 
                 Spacer()
