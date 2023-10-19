@@ -21,6 +21,23 @@ def get_db_connection():
         print(f"Error al conectar a SQL Server {e}")
 
 
+def obtener_usuarios():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT ID_USUARIO, ID_RECOLECTOR, USER_NAME, "
+                       "HASHED_PASSWORD FROM USUARIOS")
+        usuarios = [{'id': row[0], 'idRecolector': row[1], 'username': row[2],
+                     'hashed_password': row[3]} for row in cursor.fetchall()]
+
+        cursor.close()
+        conn.close()
+
+        return usuarios
+    except Exception as e:
+        return []
+
+
 def obtener_recolectores():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -148,3 +165,5 @@ def actualizar_recibo(id_bitacora, id_recolector, fecha_pago, estatus,
 if __name__ == "__main__":
     recibos = obtener_recibos_pendientes(1)
     print(recibos)
+    usuarios = obtener_usuarios()
+    print(usuarios)
