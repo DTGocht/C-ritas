@@ -25,6 +25,7 @@ struct ContentView: View {
             
         }
         .tint(Color("PantoneAC"))
+        .navigationBarBackButtonHidden(true)
         //sirve para cambiar el background del nav bar
         /*
          .onAppear(){
