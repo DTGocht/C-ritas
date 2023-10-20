@@ -85,8 +85,8 @@ def obtener_recibos_pendientes(id_recolector):
         recibos = [
             {'id': row[0], 'idRecolector': row[1], 'NombreDonante': row[2], 'ApellidoPaterno': row[3],
              'ApellidoMaterno': row[4], 'Direccion': row[5], 'Colonia': row[6],
-             'Municipio': row[7], 'CP': row[8], 'Referencias': row[9],
-             'TelMovil': row[10], 'TelCasa': row[11], 'TelOficina': row[12],
+             'Municipio': row[7], 'CP': str(row[8]), 'Referencias': row[9],
+             'TelMovil': str(row[10]), 'TelCasa': str(row[11]), 'TelOficina': str(row[12]),
              'Importe': float(row[13]), 'Estatus': row[14]}
             for row in cursor.fetchall()]
 

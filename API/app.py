@@ -149,8 +149,7 @@ async def read_users_me(current_user: User = Depends(get_current_active_user)):
 
 
 @app.get('/recibosRecolector/{id_recolector}')
-async def recibos_recolector(
-        id_recolector: int = Depends(get_current_active_user)):
+async def recibos_recolector(id_recolector: int):
     recibos = sql.obtener_recibos_pendientes(id_recolector)
     return jsonable_encoder(recibos)
 
@@ -162,8 +161,7 @@ async def recibos_estatus_recolector(id_recolector: int, estatus: str):
 
 
 @app.put('/actualizarRecibo/{id_bitacora}')
-async def actualizar_recibo(id_bitacora: int,
-                            recibo: Recibo = Depends(get_current_active_user)):
+async def actualizar_recibo(id_bitacora: int, recibo: Recibo):
     data = recibo.model_dump()
 
     id_recolector = data['id_recolector']
@@ -191,6 +189,6 @@ async def obtener_recolectores():
 if __name__ == '__main__':
     import uvicorn
 
-    uvicorn.run(app, host='0.0.0.0', port=8082)
+    uvicorn.run(app, port=8082, host='0.0.0.0')
     pwd = get_password_hash('123456')
     print(pwd)
