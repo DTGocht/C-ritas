@@ -21,6 +21,23 @@ def get_db_connection():
         print(f"Error al conectar a SQL Server {e}")
 
 
+def obtener_usuarios():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT ID_USUARIO, ID_RECOLECTOR, USER_NAME, "
+                       "HASHED_PASSWORD FROM USUARIOS")
+        usuarios = [{'id': row[0], 'idRecolector': row[1], 'username': row[2],
+                     'hashed_password': row[3]} for row in cursor.fetchall()]
+
+        cursor.close()
+        conn.close()
+
+        return usuarios
+    except Exception as e:
+        return []
+
+
 def obtener_recolectores():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -68,8 +85,8 @@ def obtener_recibos_pendientes(id_recolector):
         recibos = [
             {'id': row[0], 'idRecolector': row[1], 'NombreDonante': row[2], 'ApellidoPaterno': row[3],
              'ApellidoMaterno': row[4], 'Direccion': row[5], 'Colonia': row[6],
-             'Municipio': row[7], 'CP': row[8], 'Referencias': row[9],
-             'TelMovil': row[10], 'TelCasa': row[11], 'TelOficina': row[12],
+             'Municipio': row[7], 'CP': str(row[8]), 'Referencias': row[9],
+             'TelMovil': str(row[10]), 'TelCasa': str(row[11]), 'TelOficina': str(row[12]),
              'Importe': float(row[13]), 'Estatus': row[14]}
             for row in cursor.fetchall()]
 
@@ -148,3 +165,5 @@ def actualizar_recibo(id_bitacora, id_recolector, fecha_pago, estatus,
 if __name__ == "__main__":
     recibos = obtener_recibos_pendientes(1)
     print(recibos)
+    usuarios = obtener_usuarios()
+    print(usuarios)
