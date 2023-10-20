@@ -1,18 +1,49 @@
 //
-//  Donante_View.swift
-//  Reto
+//  ContentView.swift
+//  reto_noEntregados
 //
-//  Created by Jimena Gallegos on 13/10/23.
+//  Created by Jimena Gallegos on 11/10/23.
 //
 
 import SwiftUI
-import MapKit
+
+struct SecondView: View {
+    @Environment(\.dismiss) var dismiss
+    @State var comentario: String
+    @State var nuevo: String
+    
+    var body: some View {
+        
+        TextField("Agrege el comentario", text: $nuevo)
+            .disableAutocorrection(true)
+            .textFieldStyle(.roundedBorder)
+            .frame(width: 320, height: 100)
+        
+        HStack{
+            Button("Añadir"){
+                comentario = nuevo
+                print(comentario)
+                dismiss()
+            }.buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.061, green: 0.51, blue: 0.997))
+            
+            Button("Cancelar"){
+                print(comentario)
+                dismiss()
+            }.buttonStyle(.borderedProminent)
+                .tint(Color(red: 0.061, green: 0.51, blue: 0.997))
+        }
+        
+        
+    }
+}
 
 struct Donante_View: View {
     let donador: Int
     @State var Alerta_Recibido = false
     @State var Alerta_No_Recibido = false
     @State var listaRecibos = getRecibos()
+    @State private var mostrarComentarios = false
     
     var body: some View {
         VStack {
@@ -125,54 +156,70 @@ struct Donante_View: View {
                             
                         }
                     }
-                    Button {
+                    Button(action: {
                         Alerta_Recibido = true
-                    } label: {
-                        Spacer()
-                        Image("Entregado")
-                        Spacer()
+                    }) {
+                        HStack {
+                            Spacer()
+                            Image("Entregado")
+                            Spacer()
+                        }
                     }
                     .frame(width: 340, height: 56)
                     .background(Color(red: 0.28, green: 0.63, blue: 0.28))
                     .cornerRadius(10)
                     .alert(isPresented: $Alerta_Recibido) {
-                            Alert(
-                                title: Text("¿Seguro que desea marcar como Recibido?"),
-                                primaryButton: .default(
-                                    Text("Continuar"),
-                                    action: {}
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Cancelar"),
-                                    action: {}
-                                )
+                        Alert(
+                            title: Text("¿Seguro que desea marcar como Recibido?"),
+                            primaryButton: .default(
+                                Text("Continuar"),
+                                action: {
+                                    mostrarComentarios.toggle()
+                                }
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Cancelar"),
+                                action: {
+                                }
                             )
-                        }
+                        )
+                    }
+                    .sheet(isPresented: $mostrarComentarios) {
+                        SecondView(comentario: "", nuevo: "")
+                    }
                     
                     
-                    Button {
+                    Button(action: {
                         Alerta_No_Recibido = true
-                    } label: {
-                        Spacer()
-                        Image("No Entregado")
-                        Spacer()
+                    }) {
+                        HStack {
+                            Spacer()
+                            Image("No Entregado")
+                            Spacer()
+                        }
                     }
                     .frame(width: 340, height: 56)
                     .background(Color(red: 0.78, green: 0.04, blue: 0.05))
                     .cornerRadius(10)
                     .alert(isPresented: $Alerta_No_Recibido) {
-                            Alert(
-                                title: Text("¿Seguro que desea marcar como No Recibido?"),
-                                primaryButton: .default(
-                                    Text("Continuar"),
-                                    action: {}
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Cancelar"),
-                                    action: {}
-                                )
+                        Alert(
+                            title: Text("¿Seguro que desea marcar como No Recibido?"),
+                            primaryButton: .default(
+                                Text("Continuar"),
+                                action: {
+                                    mostrarComentarios.toggle()
+                                }
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Cancelar"),
+                                action: {
+                                }
                             )
-                        }
+                        )
+                    }
+                    .sheet(isPresented: $mostrarComentarios) {
+                        SecondView(comentario: "", nuevo: "")
+                    }
                     
                 Spacer()
                 }
@@ -273,54 +320,70 @@ struct Donante_View: View {
                             
                         }
                     }
-                    Button {
+                    Button(action: {
                         Alerta_Recibido = true
-                    } label: {
-                        Spacer()
-                        Image("Entregado")
-                        Spacer()
+                    }) {
+                        HStack {
+                            Spacer()
+                            Image("Entregado")
+                            Spacer()
+                        }
                     }
                     .frame(width: 340, height: 56)
                     .background(Color(red: 0.28, green: 0.63, blue: 0.28))
                     .cornerRadius(10)
                     .alert(isPresented: $Alerta_Recibido) {
-                            Alert(
-                                title: Text("¿Seguro que desea marcar como Recibido?"),
-                                primaryButton: .default(
-                                    Text("Continuar"),
-                                    action: {}
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Cancelar"),
-                                    action: {}
-                                )
+                        Alert(
+                            title: Text("¿Seguro que desea marcar como Recibido?"),
+                            primaryButton: .default(
+                                Text("Continuar"),
+                                action: {
+                                    mostrarComentarios.toggle()
+                                }
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Cancelar"),
+                                action: {
+                                }
                             )
-                        }
+                        )
+                    }
+                    .sheet(isPresented: $mostrarComentarios) {
+                        SecondView(comentario: "", nuevo: "")
+                    }
                     
                     
-                    Button {
+                    Button(action: {
                         Alerta_No_Recibido = true
-                    } label: {
-                        Spacer()
-                        Image("No Entregado")
-                        Spacer()
+                    }) {
+                        HStack {
+                            Spacer()
+                            Image("No Entregado")
+                            Spacer()
+                        }
                     }
                     .frame(width: 340, height: 56)
                     .background(Color(red: 0.78, green: 0.04, blue: 0.05))
                     .cornerRadius(10)
                     .alert(isPresented: $Alerta_No_Recibido) {
-                            Alert(
-                                title: Text("¿Seguro que desea marcar como No Recibido?"),
-                                primaryButton: .default(
-                                    Text("Continuar"),
-                                    action: {}
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Cancelar"),
-                                    action: {}
-                                )
+                        Alert(
+                            title: Text("¿Seguro que desea marcar como No Recibido?"),
+                            primaryButton: .default(
+                                Text("Continuar"),
+                                action: {
+                                    mostrarComentarios.toggle()
+                                }
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Cancelar"),
+                                action: {
+                                }
                             )
-                        }
+                        )
+                    }
+                    .sheet(isPresented: $mostrarComentarios) {
+                        SecondView(comentario: "", nuevo: "")
+                    }
                 Spacer()
                 }
                 
@@ -422,54 +485,70 @@ struct Donante_View: View {
                         }
                     }
                     
-                    Button {
+                    Button(action: {
                         Alerta_Recibido = true
-                    } label: {
-                        Spacer()
-                        Image("Entregado")
-                        Spacer()
+                    }) {
+                        HStack {
+                            Spacer()
+                            Image("Entregado")
+                            Spacer()
+                        }
                     }
                     .frame(width: 340, height: 56)
                     .background(Color(red: 0.28, green: 0.63, blue: 0.28))
                     .cornerRadius(10)
                     .alert(isPresented: $Alerta_Recibido) {
-                            Alert(
-                                title: Text("¿Seguro que desea marcar como Recibido?"),
-                                primaryButton: .default(
-                                    Text("Continuar"),
-                                    action: {}
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Cancelar"),
-                                    action: {}
-                                )
+                        Alert(
+                            title: Text("¿Seguro que desea marcar como Recibido?"),
+                            primaryButton: .default(
+                                Text("Continuar"),
+                                action: {
+                                    mostrarComentarios.toggle()
+                                }
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Cancelar"),
+                                action: {
+                                }
                             )
-                        }
+                        )
+                    }
+                    .sheet(isPresented: $mostrarComentarios) {
+                        SecondView(comentario: "", nuevo: "")
+                    }
                     
                     
-                    Button {
+                    Button(action: {
                         Alerta_No_Recibido = true
-                    } label: {
-                        Spacer()
-                        Image("No Entregado")
-                        Spacer()
+                    }) {
+                        HStack {
+                            Spacer()
+                            Image("No Entregado")
+                            Spacer()
+                        }
                     }
                     .frame(width: 340, height: 56)
                     .background(Color(red: 0.78, green: 0.04, blue: 0.05))
                     .cornerRadius(10)
                     .alert(isPresented: $Alerta_No_Recibido) {
-                            Alert(
-                                title: Text("¿Seguro que desea marcar como No Recibido?"),
-                                primaryButton: .default(
-                                    Text("Continuar"),
-                                    action: {}
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Cancelar"),
-                                    action: {}
-                                )
+                        Alert(
+                            title: Text("¿Seguro que desea marcar como No Recibido?"),
+                            primaryButton: .default(
+                                Text("Continuar"),
+                                action: {
+                                    mostrarComentarios.toggle()
+                                }
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Cancelar"),
+                                action: {
+                                }
                             )
-                        }
+                        )
+                    }
+                    .sheet(isPresented: $mostrarComentarios) {
+                        SecondView(comentario: "", nuevo: "")
+                    }
                 Spacer()
                     
                 }
@@ -564,54 +643,71 @@ struct Donante_View: View {
                         }
                     }
                     
-                    Button {
+                    Button(action: {
                         Alerta_Recibido = true
-                    } label: {
-                        Spacer()
-                        Image("Entregado")
-                        Spacer()
+                    }) {
+                        HStack {
+                            Spacer()
+                            Image("Entregado")
+                            Spacer()
+                        }
                     }
                     .frame(width: 340, height: 56)
                     .background(Color(red: 0.28, green: 0.63, blue: 0.28))
                     .cornerRadius(10)
                     .alert(isPresented: $Alerta_Recibido) {
-                            Alert(
-                                title: Text("¿Seguro que desea marcar como Recibido?"),
-                                primaryButton: .default(
-                                    Text("Continuar"),
-                                    action: {}
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Cancelar"),
-                                    action: {}
-                                )
+                        Alert(
+                            title: Text("¿Seguro que desea marcar como Recibido?"),
+                            primaryButton: .default(
+                                Text("Continuar"),
+                                action: {
+                                    mostrarComentarios.toggle()
+                                }
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Cancelar"),
+                                action: {
+                                }
                             )
-                        }
+                        )
+                    }
+                    .sheet(isPresented: $mostrarComentarios) {
+                        SecondView(comentario: "", nuevo: "")
+                    }
                     
                     
-                    Button {
+                    Button(action: {
                         Alerta_No_Recibido = true
-                    } label: {
-                        Spacer()
-                        Image("No Entregado")
-                        Spacer()
+                    }) {
+                        HStack {
+                            Spacer()
+                            Image("No Entregado")
+                            Spacer()
+                        }
                     }
                     .frame(width: 340, height: 56)
                     .background(Color(red: 0.78, green: 0.04, blue: 0.05))
                     .cornerRadius(10)
                     .alert(isPresented: $Alerta_No_Recibido) {
-                            Alert(
-                                title: Text("¿Seguro que desea marcar como No Recibido?"),
-                                primaryButton: .default(
-                                    Text("Continuar"),
-                                    action: {}
-                                ),
-                                secondaryButton: .destructive(
-                                    Text("Cancelar"),
-                                    action: {}
-                                )
+                        Alert(
+                            title: Text("¿Seguro que desea marcar como No Recibido?"),
+                            primaryButton: .default(
+                                Text("Continuar"),
+                                action: {
+                                    mostrarComentarios.toggle()
+                                }
+                            ),
+                            secondaryButton: .destructive(
+                                Text("Cancelar"),
+                                action: {
+                                }
                             )
-                        }
+                        )
+                    }
+                    .sheet(isPresented: $mostrarComentarios) {
+                        SecondView(comentario: "", nuevo: "")
+                    }
+
                     
                 Spacer()
                 }
@@ -625,5 +721,3 @@ struct Donante_View_Previews: PreviewProvider {
         Donante_View(donador: 1)
     }
 }
-
-
