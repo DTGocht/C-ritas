@@ -14,27 +14,39 @@ struct SecondView: View {
     
     var body: some View {
         
-        TextField("Agrege el comentario", text: $nuevo)
-            .disableAutocorrection(true)
-            .textFieldStyle(.roundedBorder)
-            .frame(width: 320, height: 100)
-        
-        HStack{
-            Button("Añadir"){
-                comentario = nuevo
-                print(comentario)
-                dismiss()
-            }.buttonStyle(.borderedProminent)
-                .tint(Color(red: 0.061, green: 0.51, blue: 0.997))
+        VStack{
+            Spacer()
+            HStack{
+                Spacer()
+            }
+            Text("Agrega un comentario")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(Color(red: 0.01, green: 0.56, blue: 0.62))
+              .frame(width: 320, height: 35, alignment: .leading)
             
-            Button("Cancelar"){
-                print(comentario)
-                dismiss()
-            }.buttonStyle(.borderedProminent)
-                .tint(Color(red: 0.061, green: 0.51, blue: 0.997))
+            TextField("Detalles", text: $nuevo, axis: .vertical)
+                .disableAutocorrection(true)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 320)
+            
+            HStack{
+                Button("Añadir"){
+                    comentario = nuevo
+                    print(comentario)
+                    dismiss()
+                }.buttonStyle(.borderedProminent)
+                    .tint(Color(red: 0.01, green: 0.56, blue: 0.62))
+                
+                Button("Cancelar"){
+                    print(comentario)
+                    dismiss()
+                }.buttonStyle(.borderedProminent)
+                    .tint(Color(red: 0.01, green: 0.56, blue: 0.62))
+            }
+            Spacer()
         }
-        
-        
+        .background(Color(hue: 0.519, saturation: 0.364, brightness: 0.914))
     }
 }
 
@@ -129,7 +141,7 @@ struct Donante_View: View {
                             Text("Referencia")
                                 .frame(width: 310, alignment: .leading)
                             
-                            Text("\(info_donador.Referencia.capitalized)")
+                            Text("\(info_donador.Referencias.capitalized)")
                                 .foregroundColor(.blue)
                                 .frame(width: 310, alignment: .leading)
                         }
@@ -293,7 +305,7 @@ struct Donante_View: View {
                             Text("Referencia")
                                 .frame(width: 310, alignment: .leading)
                             
-                            Text("\(info_donador.Referencia.capitalized)")
+                            Text("\(info_donador.Referencias.capitalized)")
                                 .foregroundColor(.blue)
                                 .frame(width: 310, alignment: .leading)
                         }
@@ -457,7 +469,7 @@ struct Donante_View: View {
                             Text("Referencia")
                                 .frame(width: 310, alignment: .leading)
                             
-                            Text("\(info_donador.Referencia.capitalized)")
+                            Text("\(info_donador.Referencias.capitalized)")
                                 .foregroundColor(.blue)
                                 .frame(width: 310, alignment: .leading)
                         }
@@ -615,7 +627,7 @@ struct Donante_View: View {
                             Text("Referencia")
                                 .frame(width: 310, alignment: .leading)
                             
-                            Text("\(info_donador.Referencia.capitalized)")
+                            Text("\(info_donador.Referencias.capitalized)")
                                 .foregroundColor(.blue)
                                 .frame(width: 310, alignment: .leading)
                         }

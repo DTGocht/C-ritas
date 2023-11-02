@@ -24,7 +24,7 @@ struct Recibos_Lista: View {
                     Tarjeta_Nombre_Roja()
                 }
                 VStack{
-                    Text("\(recibo.NombreDonante) \(recibo.ApellidoMaterno) ")
+                    Text("\(recibo.NombreDonante) \(recibo.ApellidoPaterno) ")
                         .font(.title2)
                         .bold()
                         .frame(width: 310, height: 28, alignment: .leading)

@@ -11,7 +11,7 @@ import SwiftUI
 struct RetoApp: App {
     var body: some Scene {
         WindowGroup {
-            SplashScreenView()
+            ContentView()
         }
     }
 }
