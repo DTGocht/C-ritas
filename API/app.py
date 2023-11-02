@@ -6,21 +6,18 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 import mssql_functions as sql
+from dotenv import load_dotenv
+import os
 
-SECRET_KEY = "33db653e9ce900f8fcb5b9ba69deec5cb6ffafdb910c67388849eb0e81c30ac7"
+load_dotenv()
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 # usuarios = sql.obtener_usuarios()
 
-fake_db = [{
-    "id": 1,
-    "idRecolector": 1,
-    "username": "tim",
-    "email": "example@gmail.com",
-    "hashed_password": "$2b$12$SGOcSKH5XvJeHcWw65OVg.n2gIR1zUd8HuJ6veQqCpzin0XoreHlK",
-    "disabled": 0
-}]
+users_db = sql.obtener_usuarios()
 
 
 class Token(BaseModel):
@@ -45,10 +42,6 @@ class UserInDB(User):
     hashed_password: str
 
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
-
 class Recibo(BaseModel):
     id_recolector: int
     fecha_cobro: str
@@ -56,6 +49,10 @@ class Recibo(BaseModel):
     fecha_reprogramacion: str
     usuario_cancelacion: int
     comentarios: str
+
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 
 app = FastAPI()
@@ -112,7 +109,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    user = get_user(fake_db, username=token_data.username)
+    user = get_user(users_db, username=token_data.username)
     if user is None:
         raise credentials_exception
     return user
@@ -129,7 +126,7 @@ async def get_current_active_user(
 async def login_for_access_token(
         form_data: OAuth2PasswordRequestForm = Depends()):
     # Genera un token de acceso
-    user = authenticate_user(fake_db, form_data.username, form_data.password)
+    user = authenticate_user(users_db, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -190,5 +187,4 @@ if __name__ == '__main__':
     import uvicorn
 
     uvicorn.run(app, port=8082, host='0.0.0.0')
-    pwd = get_password_hash('123456')
-    print(pwd)
+
