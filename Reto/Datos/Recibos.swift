@@ -5,7 +5,7 @@
 //  Created by Jimena Gallegos on 13/10/23.
 //
 
-/*import Foundation
+import Foundation
 
 var listaRecibos = getRecibos()
 
@@ -42,24 +42,23 @@ func getRecibos() -> Array<Recibos>{
 
 
 struct Recibos: Codable, Identifiable{
-    var ApellidoMaterno: String
-    var ApellidoPaterno: String
-    var CP: String
-    var Colonia: String
-    var Direccion: String
-    var Estatus: String
-    var Importe: Float
-    var Municipio: String
-    var NombreDonante: String
-    var Referencias: String
-    var TelCasa: String
-    var TelMovil: String
-    var TelOficina: String
     var id: Int
     var idRecolector: Int
-    var Referencia: String
+    var NombreDonante: String
+    var ApellidoPaterno: String
+    var ApellidoMaterno: String
+    var Direccion: String
+    var Colonia: String
+    var Municipio: String
+    var CP: String
+    var Referencias: String
+    var TelMovil: String
+    var TelCasa: String
+    var TelOficina: String
+    var Importe: Float
+    var Estatus: String
 }
-*/
+/*
 import Foundation
 
 struct Recibos: Codable, Identifiable{
@@ -96,3 +95,4 @@ func getRecibos() -> Array<Recibos>{
     
     return lista
 }
+*/
