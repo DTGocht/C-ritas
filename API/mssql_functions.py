@@ -38,8 +38,7 @@ def obtener_usuarios():
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
-        cursor.execute("SELECT ID_USUARIO, ID_RECOLECTOR, USER_NAME, "
-                       "EMAIL, HASHED_PASSWORD, isActive FROM USUARIOS")
+        cursor.execute("{CALL ObtenerUsuarios}")
         usuarios = [{'id': row[0], 'idRecolector': row[1], 'username': row[2],
                      'email': row[3], 'hashed_password': row[4],
                      'disabled': row[5]} for row in cursor.fetchall()]
@@ -84,26 +83,7 @@ def obtener_recibos_pendientes(id_recolector):
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
-        cursor.execute("SELECT BP.ID_BITACORA, \
-            BP.ID_RECOLECTOR, \
-            D.NOMBRE, \
-            D.APELLIDO_PATERNO, \
-            D.APELLIDO_MATERNO, \
-            D.DIRECCION, \
-            D.COLONIA, \
-            D.MUNICIPIO, \
-            D.CP, \
-            D.REFERENCIAS, \
-            D.TEL_MOVIL, \
-            D.TEL_CASA, \
-            D.TEL_OFICINA,\
-            DON.CANTIDAD, \
-            BP.ESTATUS  \
-            FROM DONANTES D \
-            LEFT JOIN DONATIVOS_DONANTE DON ON DON.ID_DONANTE = D.ID_DONANTE \
-            LEFT JOIN BITACORA_PAGOS BP ON BP.ID_DONATIVO = DON.ID_DONATIVO \
-            WHERE CAST(FECHA_COBRO AS DATE) = CAST(SYSDATETIME() AS DATE) \
-            AND BP.ID_RECOLECTOR = ?", id_recolector)
+        cursor.execute("{CALL RecibosPendientesReco(?)}", id_recolector)
         recibos = [
             {'id': row[0], 'idRecolector': row[1], 'NombreDonante': row[2], 'ApellidoPaterno': row[3],
              'ApellidoMaterno': row[4], 'Direccion': row[5], 'Colonia': row[6],
@@ -180,16 +160,10 @@ def actualizar_recibo(id_bitacora, id_recolector, fecha_pago, estatus,
 
     cursor = conn.cursor()
     try:
-        cursor.execute("UPDATE BITACORA_PAGOS \
-            SET FECHA_COBRO = ?, \
-            ESTATUS = ?, \
-            FECHA_REPROGRAMACION = ?, \
-            USUARIO_CANCELACION = ?, \
-            COMENTARIOS = ?  \
-            WHERE ID_BITACORA = ? AND ID_RECOLECTOR = ?",
-                       (fecha_date_pago, estatus, fecha_date_reprogramacion,
-                        usuario_cancelacion, comentarios, id_bitacora,
-                        id_recolector))
+        params = (fecha_date_pago, estatus, fecha_date_reprogramacion,
+                  usuario_cancelacion, comentarios, id_bitacora,
+                  id_recolector)
+        cursor.execute("{CALL ActualizarEstadoRecibo(?, ?, ?, ?, ?, ?, ?)}", params)
 
         cursor.commit()
         cursor.close()
@@ -198,4 +172,10 @@ def actualizar_recibo(id_bitacora, id_recolector, fecha_pago, estatus,
     except Exception as e:
         return False
 
+
+if __name__ == '__main__':
+    users = obtener_usuarios()
+    print(users)
+    recibos = obtener_recibos_pendientes(1)
+    print(recibos)
 
