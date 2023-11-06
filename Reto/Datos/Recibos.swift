@@ -98,4 +98,3 @@ func getRecibos() -> Array<Recibos>{
     
     return lista
 }
-

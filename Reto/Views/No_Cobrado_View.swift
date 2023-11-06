@@ -12,8 +12,8 @@ struct No_Cobrado_View: View {
     @State var listaRecibos = getRecibos()
     @State var selectedDate: Date = Date()
     @State private var cancelado: Int = 1
-    @State var continuar = false
     @State private var notas: String = ""
+    @State var continuar = false
     
     var body: some View {
         NavigationStack{
