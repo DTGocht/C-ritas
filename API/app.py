@@ -49,7 +49,6 @@ class UserInDB(User):
 
 class Recibo(BaseModel):
     id_recolector: int
-    fecha_cobro: str
     estatus: str
     fecha_reprogramacion: str
     usuario_cancelacion: int
@@ -225,13 +224,12 @@ async def actualizar_recibo(id_bitacora: int, recibo: Recibo):
     """
     data = recibo.model_dump()
     id_recolector = data['id_recolector']
-    fecha_pago = data['fecha_cobro']
     estatus = data['estatus']
     fecha_reprogramacion = data['fecha_reprogramacion']
     usuario_cancelacion = data['usuario_cancelacion']
     comentarios = data['comentarios']
 
-    if sql.actualizar_recibo(id_bitacora, id_recolector, fecha_pago, estatus,
+    if sql.actualizar_recibo(id_bitacora, id_recolector, estatus,
                              fecha_reprogramacion, usuario_cancelacion,
                              comentarios):
         return {'message': 'Recibo actualizado'}

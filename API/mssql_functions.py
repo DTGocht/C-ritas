@@ -132,13 +132,12 @@ def obtener_recibos_por_estatus(id_recolector, estatus):
         return e
 
 
-def actualizar_recibo(id_bitacora, id_recolector, fecha_pago, estatus,
+def actualizar_recibo(id_bitacora, id_recolector, estatus,
                       fecha_reprogramacion, usuario_cancelacion, comentarios):
     """
     Método para actualizar el estatus de un recibo en la bitácora de pagos
     :param id_bitacora:
     :param id_recolector:
-    :param fecha_pago:
     :param estatus:
     :param fecha_reprogramacion:
     :param usuario_cancelacion:
@@ -148,8 +147,6 @@ def actualizar_recibo(id_bitacora, id_recolector, fecha_pago, estatus,
     conn = get_db_connection()
 
     # Convierte la fecha a un objeto datetime
-    fecha_date_pago = datetime.datetime.strptime(fecha_pago, '%d/%m/%Y')
-    fecha_date_pago = fecha_date_pago.strftime('%Y-%m-%d')
 
     if fecha_reprogramacion != "":
         fecha_date_reprogramacion = datetime.datetime.strptime(
@@ -160,10 +157,10 @@ def actualizar_recibo(id_bitacora, id_recolector, fecha_pago, estatus,
 
     cursor = conn.cursor()
     try:
-        params = (fecha_date_pago, estatus, fecha_date_reprogramacion,
+        params = (estatus, fecha_date_reprogramacion,
                   usuario_cancelacion, comentarios, id_bitacora,
                   id_recolector)
-        cursor.execute("{CALL ActualizarEstadoRecibo(?, ?, ?, ?, ?, ?, ?)}", params)
+        cursor.execute("{CALL ActualizarEstadoRecibo(?, ?, ?, ?, ?, ?)}", params)
 
         cursor.commit()
         cursor.close()
