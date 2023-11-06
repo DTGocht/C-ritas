@@ -7,48 +7,6 @@
 
 import SwiftUI
 
-struct SecondView: View {
-    @Environment(\.dismiss) var dismiss
-    @State var comentario: String
-    @State var nuevo: String
-    
-    var body: some View {
-        
-        VStack{
-            Spacer()
-            HStack{
-                Spacer()
-            }
-            Text("Agrega un comentario")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(Color(red: 0.01, green: 0.56, blue: 0.62))
-              .frame(width: 320, height: 35, alignment: .leading)
-            
-            TextField("Detalles", text: $nuevo, axis: .vertical)
-                .disableAutocorrection(true)
-                .textFieldStyle(.roundedBorder)
-                .frame(width: 320)
-            
-            HStack{
-                Button("Añadir"){
-                    comentario = nuevo
-                    print(comentario)
-                    dismiss()
-                }.buttonStyle(.borderedProminent)
-                    .tint(Color(red: 0.01, green: 0.56, blue: 0.62))
-                
-                Button("Cancelar"){
-                    print(comentario)
-                    dismiss()
-                }.buttonStyle(.borderedProminent)
-                    .tint(Color(red: 0.01, green: 0.56, blue: 0.62))
-            }
-            Spacer()
-        }
-        .background(Color(hue: 0.519, saturation: 0.364, brightness: 0.914))
-    }
-}
 
 struct Donante_View: View {
     let donador: Int
@@ -189,6 +147,7 @@ struct Donante_View: View {
                                 Text("Continuar"),
                                 action: {
                                     cobrado.toggle()
+                                    
                                 }
                             ),
                             secondaryButton: .destructive(

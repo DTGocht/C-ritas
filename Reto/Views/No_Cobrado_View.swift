@@ -9,9 +9,11 @@ import SwiftUI
 
 struct No_Cobrado_View: View {
     let donador: Int
+    @State private var cancelado: Int = 1
+    
     @State var listaRecibos = getRecibos()
     @State var selectedDate: Date = Date()
-    @State private var cancelado: Int = 1
+    @State var estatus_cancelado = 0
     @State private var notas: String = ""
     @State var continuar = false
     
@@ -74,6 +76,15 @@ struct No_Cobrado_View: View {
                             }
                             .pickerStyle(.segmented)
                             .frame(width: 300)
+                            .onChange(of: cancelado){
+                                value in
+                                if (value == 5){
+                                    estatus_cancelado = 1
+                                }
+                                else{
+                                    estatus_cancelado = 0
+                                }
+                            }
                         }
                         
         
@@ -103,7 +114,8 @@ struct No_Cobrado_View: View {
                     }
                     
                     Button(action: {
-                        continuar = true
+                        continuar = true;
+                        Actualizar(idBitacora: info_donador.id, fecha: selectedDate)
                     }) {
                         HStack {
                             Spacer()
@@ -127,6 +139,16 @@ struct No_Cobrado_View: View {
                 .navigationBarBackButtonHidden(true)
             }
         }
+    }
+    
+    func Actualizar(idBitacora:Int, fecha:Date){
+        let dateFormatter = DateFormatter()
+        
+        var fecha_reprogramacion = dateFormatter.string(from: fecha)
+        
+        let actualizar = Actualizar_Recibos(id_recolector: 1, estatus: "No Cobrado", fecha_reprogramacion: fecha_reprogramacion, usuario_cancelacion: estatus_cancelado, comentarios: notas)
+        
+        Actualizar_Recibo(recibo: actualizar, id_bitacora: idBitacora)
     }
 }
 
