@@ -56,6 +56,8 @@ struct Donante_View: View {
     @State var Alerta_No_Recibido = false
     @State var listaRecibos = getRecibos()
     @State private var mostrarComentarios = false
+    @State private var cobrado = false
+    @State private var no_cobrado = false
     
     var body: some View {
         VStack {
@@ -186,7 +188,7 @@ struct Donante_View: View {
                             primaryButton: .default(
                                 Text("Continuar"),
                                 action: {
-                                    mostrarComentarios.toggle()
+                                    cobrado.toggle()
                                 }
                             ),
                             secondaryButton: .destructive(
@@ -196,10 +198,6 @@ struct Donante_View: View {
                             )
                         )
                     }
-                    .sheet(isPresented: $mostrarComentarios) {
-                        SecondView(comentario: "", nuevo: "")
-                    }
-                    
                     
                     Button(action: {
                         Alerta_No_Recibido = true
@@ -219,7 +217,7 @@ struct Donante_View: View {
                             primaryButton: .default(
                                 Text("Continuar"),
                                 action: {
-                                    mostrarComentarios.toggle()
+                                    no_cobrado.toggle()
                                 }
                             ),
                             secondaryButton: .destructive(
@@ -229,9 +227,10 @@ struct Donante_View: View {
                             )
                         )
                     }
-                    .sheet(isPresented: $mostrarComentarios) {
-                        SecondView(comentario: "", nuevo: "")
-                    }
+                    
+                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    
+                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
                     
                 Spacer()
                 }
@@ -350,7 +349,7 @@ struct Donante_View: View {
                             primaryButton: .default(
                                 Text("Continuar"),
                                 action: {
-                                    mostrarComentarios.toggle()
+                                    cobrado.toggle()
                                 }
                             ),
                             secondaryButton: .destructive(
@@ -360,10 +359,6 @@ struct Donante_View: View {
                             )
                         )
                     }
-                    .sheet(isPresented: $mostrarComentarios) {
-                        SecondView(comentario: "", nuevo: "")
-                    }
-                    
                     
                     Button(action: {
                         Alerta_No_Recibido = true
@@ -383,7 +378,7 @@ struct Donante_View: View {
                             primaryButton: .default(
                                 Text("Continuar"),
                                 action: {
-                                    mostrarComentarios.toggle()
+                                    no_cobrado.toggle()
                                 }
                             ),
                             secondaryButton: .destructive(
@@ -393,9 +388,11 @@ struct Donante_View: View {
                             )
                         )
                     }
-                    .sheet(isPresented: $mostrarComentarios) {
-                        SecondView(comentario: "", nuevo: "")
-                    }
+                    
+                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    
+                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    
                 Spacer()
                 }
                 
@@ -515,7 +512,7 @@ struct Donante_View: View {
                             primaryButton: .default(
                                 Text("Continuar"),
                                 action: {
-                                    mostrarComentarios.toggle()
+                                    cobrado.toggle()
                                 }
                             ),
                             secondaryButton: .destructive(
@@ -525,10 +522,6 @@ struct Donante_View: View {
                             )
                         )
                     }
-                    .sheet(isPresented: $mostrarComentarios) {
-                        SecondView(comentario: "", nuevo: "")
-                    }
-                    
                     
                     Button(action: {
                         Alerta_No_Recibido = true
@@ -548,7 +541,7 @@ struct Donante_View: View {
                             primaryButton: .default(
                                 Text("Continuar"),
                                 action: {
-                                    mostrarComentarios.toggle()
+                                    no_cobrado.toggle()
                                 }
                             ),
                             secondaryButton: .destructive(
@@ -558,11 +551,12 @@ struct Donante_View: View {
                             )
                         )
                     }
-                    .sheet(isPresented: $mostrarComentarios) {
-                        SecondView(comentario: "", nuevo: "")
-                    }
-                Spacer()
                     
+                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    
+                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    
+                Spacer()
                 }
                 
                 else if (info_donador.TelMovil != "" && info_donador.TelCasa == "" && info_donador.TelOficina == ""){
@@ -673,7 +667,7 @@ struct Donante_View: View {
                             primaryButton: .default(
                                 Text("Continuar"),
                                 action: {
-                                    mostrarComentarios.toggle()
+                                    cobrado.toggle()
                                 }
                             ),
                             secondaryButton: .destructive(
@@ -683,10 +677,6 @@ struct Donante_View: View {
                             )
                         )
                     }
-                    .sheet(isPresented: $mostrarComentarios) {
-                        SecondView(comentario: "", nuevo: "")
-                    }
-                    
                     
                     Button(action: {
                         Alerta_No_Recibido = true
@@ -706,7 +696,7 @@ struct Donante_View: View {
                             primaryButton: .default(
                                 Text("Continuar"),
                                 action: {
-                                    mostrarComentarios.toggle()
+                                    no_cobrado.toggle()
                                 }
                             ),
                             secondaryButton: .destructive(
@@ -716,10 +706,10 @@ struct Donante_View: View {
                             )
                         )
                     }
-                    .sheet(isPresented: $mostrarComentarios) {
-                        SecondView(comentario: "", nuevo: "")
-                    }
-
+                    
+                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    
+                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
                     
                 Spacer()
                 }

@@ -38,6 +38,7 @@ struct Recibos_Pendientes_View: View {
                 Spacer()
             } .padding()
                 .offset(y: -35)
+                .navigationBarBackButtonHidden(true)
             }
             
     }
