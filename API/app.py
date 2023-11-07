@@ -50,8 +50,6 @@ class UserInDB(User):
 class Recibo(BaseModel):
     id_recolector: int
     estatus: str
-    fecha_reprogramacion: str
-    usuario_cancelacion: int
     comentarios: str
 
 
@@ -225,13 +223,9 @@ async def actualizar_recibo(id_bitacora: int, recibo: Recibo):
     data = recibo.model_dump()
     id_recolector = data['id_recolector']
     estatus = data['estatus']
-    fecha_reprogramacion = data['fecha_reprogramacion']
-    usuario_cancelacion = data['usuario_cancelacion']
     comentarios = data['comentarios']
 
-    if sql.actualizar_recibo(id_bitacora, id_recolector, estatus,
-                             fecha_reprogramacion, usuario_cancelacion,
-                             comentarios):
+    if sql.actualizar_recibo(id_bitacora, id_recolector, estatus, comentarios):
         return {'message': 'Recibo actualizado'}
     else:
         raise HTTPException(status_code=500,
