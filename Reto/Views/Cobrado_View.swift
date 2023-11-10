@@ -38,8 +38,7 @@ struct Cobrado_View: View {
                             .fontWeight(.bold)
                     }
                     
-                    
-                    
+                
                     ZStack(){
                         Rectangle()
                           .foregroundColor(.clear)
@@ -49,6 +48,10 @@ struct Cobrado_View: View {
                         
                         VStack(){
                             Text("Notas")
+                                .fontWeight(.bold)
+                                .padding(.top, 20)
+                            
+                            Text("\(info_donador.id)")
                                 .fontWeight(.bold)
                                 .padding(.top, 20)
                             
@@ -64,7 +67,9 @@ struct Cobrado_View: View {
                     }
                     
                     Button(action: {
-                        continuar = true
+                        continuar = true;
+                        Actualizar(idBitacora: info_donador.id)
+                        
                     }) {
                         HStack {
                             Spacer()
@@ -88,6 +93,12 @@ struct Cobrado_View: View {
                 .navigationBarBackButtonHidden(true)
             }
         }
+    }
+    
+    func Actualizar(idBitacora:Int){
+        let actualizar = Actualizar_Recibos(id_recolector: 1, estatus: "Cobrado", fecha_reprogramacion: "", usuario_cancelacion: 0, comentarios: notas)
+        
+        Actualizar_Recibo(recibo: actualizar, id_bitacora: idBitacora)
     }
 }
 
