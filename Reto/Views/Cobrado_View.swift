@@ -29,29 +29,25 @@ struct Cobrado_View: View {
                     
                     ZStack{
                         Rectangle()
-                          .foregroundColor(.clear)
-                          .frame(width: 333, height: 48)
-                          .background(Color(red: 0.95, green: 0.95, blue: 0.96))
-                          .cornerRadius(10)
+                            .foregroundColor(.clear)
+                            .frame(width: 333, height: 48)
+                            .background(Color(red: 0.95, green: 0.95, blue: 0.96))
+                            .cornerRadius(10)
                         
                         Text("Estatus: Cobrado")
                             .fontWeight(.bold)
                     }
                     
-                
+                    
                     ZStack(){
                         Rectangle()
-                          .foregroundColor(.clear)
-                          .frame(width: 333, height: 400)
-                          .background(Color(red: 0.95, green: 0.95, blue: 0.96))
-                          .cornerRadius(10)
+                            .foregroundColor(.clear)
+                            .frame(width: 333, height: 400)
+                            .background(Color(red: 0.95, green: 0.95, blue: 0.96))
+                            .cornerRadius(10)
                         
                         VStack(){
                             Text("Notas")
-                                .fontWeight(.bold)
-                                .padding(.top, 20)
-                            
-                            Text("\(info_donador.id)")
                                 .fontWeight(.bold)
                                 .padding(.top, 20)
                             
@@ -84,19 +80,19 @@ struct Cobrado_View: View {
                     .cornerRadius(10)
                     
                 }
-                 
-                NavigationLink(isActive: $continuar, destination: { Recibos_Pendientes_View() }, label: { EmptyView()})
+                
+                NavigationLink(isActive: $continuar, destination: {ContentView() }, label: { EmptyView()})
                 
                 
                 Spacer()
                 
-                .navigationBarBackButtonHidden(true)
+                    .navigationBarBackButtonHidden(true)
             }
         }
     }
     
     func Actualizar(idBitacora:Int){
-        let actualizar = Actualizar_Recibos(id_recolector: 1, estatus: "Cobrado", fecha_reprogramacion: "", usuario_cancelacion: 0, comentarios: notas)
+        let actualizar = Actualizar_Recibos(id_recolector: 1, estatus: "Cobrado", comentarios: notas)
         
         Actualizar_Recibo(recibo: actualizar, id_bitacora: idBitacora)
     }
