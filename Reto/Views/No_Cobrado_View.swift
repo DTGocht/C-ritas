@@ -9,13 +9,15 @@ import SwiftUI
 
 struct No_Cobrado_View: View {
     let donador: Int
-    @State private var cancelado: Int = 1
-    
     @State var listaRecibos = getRecibos()
-    @State var selectedDate: Date = Date()
-    @State var estatus_cancelado = 0
+    
+    var razones = ["No se encontraba en casa", "Ya no vive ahi", "No desea continuar ayudando", "Indispuesto", "No se ubicó el domicilio"]
+    @State private var razon_selecionada = "No se encontraba en casa"
     @State private var notas: String = ""
+    @State private var notas_verificar = false
+    
     @State var continuar = false
+    
     
     var body: some View {
         NavigationStack{
@@ -31,79 +33,59 @@ struct No_Cobrado_View: View {
                     
                     ZStack{
                         Rectangle()
-                          .foregroundColor(.clear)
-                          .frame(width: 333, height: 48)
-                          .background(Color(red: 0.95, green: 0.95, blue: 0.96))
-                          .cornerRadius(10)
+                            .foregroundColor(.clear)
+                            .frame(width: 333, height: 48)
+                            .background(Color(red: 0.95, green: 0.95, blue: 0.96))
+                            .cornerRadius(10)
                         
                         Text("Estatus: No Cobrado")
                             .fontWeight(.bold)
                     }
                     
+                   
                     ZStack{
                         Rectangle()
-                          .foregroundColor(.clear)
-                          .frame(width: 333, height: 103)
-                          .background(Color(red: 0.95, green: 0.95, blue: 0.96))
-                          .cornerRadius(10)
+                            .foregroundColor(.clear)
+                            .frame(width: 333, height: 180)
+                            .background(Color(red: 0.95, green: 0.95, blue: 0.96))
+                            .cornerRadius(10)
                         
                         VStack{
-                            
-                            Text("Fecha de reprogramación")
+                            Text("Selecciona razon por la cual no pudo recolectar el donativo")
                                 .fontWeight(.bold)
+                                .multilineTextAlignment(.center)
+                                .padding(.top, 20)
+                                .frame(width: 300)
                             
-                            DatePicker("", selection: $selectedDate)
-                                            .datePickerStyle(.compact)
-                                            .frame(width: 70)
-                                    }
-                        
+                            Picker("Please choose a color", selection: $razon_selecionada) {
+                                            ForEach(razones, id: \.self) {
+                                                Text($0)
+                                            }
+                                        }
+                            .pickerStyle(.inline)
+                            .frame(width: 300, height: 100)
+                        }
                     }
                     
-                    ZStack{
-                        Rectangle()
-                          .foregroundColor(.clear)
-                          .frame(width: 333, height: 103)
-                          .background(Color(red: 0.95, green: 0.95, blue: 0.96))
-                          .cornerRadius(10)
-                        
-                        VStack{
-                            Text("¿Usuario cancelado?")
-                                .fontWeight(.bold)
-                            
-                            Picker(selection: $cancelado, label: Text("Estado Cancelado")){
-                                Text("Si").tag(5)
-                                Text("No").tag(10)
-                            }
-                            .pickerStyle(.segmented)
-                            .frame(width: 300)
-                            .onChange(of: cancelado){
-                                value in
-                                if (value == 5){
-                                    estatus_cancelado = 1
-                                }
-                                else{
-                                    estatus_cancelado = 0
-                                }
-                            }
-                        }
-                        
-        
-                    }
                     
                     ZStack(){
                         Rectangle()
-                          .foregroundColor(.clear)
-                          .frame(width: 333, height: 200)
-                          .background(Color(red: 0.95, green: 0.95, blue: 0.96))
-                          .cornerRadius(10)
+                            .foregroundColor(.clear)
+                            .frame(width: 333, height: 200)
+                            .background(Color(red: 0.95, green: 0.95, blue: 0.96))
+                            .cornerRadius(10)
                         
                         VStack(){
                             Text("Notas")
                                 .fontWeight(.bold)
                                 .padding(.top, 20)
                             
-                            TextField(" Agrega tus comentarios ", text: $notas)
-                                .frame(width: 300, height: 50)
+                            Text("\(razon_selecionada)")
+                                .frame(width: 300, alignment: .leading)
+                                .padding(.top, 5)
+                            
+                            TextField("Agrega tus comentarios extras", text: $notas)
+                                .frame(width: 300, height: 10)
                                 .foregroundColor(.black)
                             
                             Spacer()
@@ -114,8 +96,15 @@ struct No_Cobrado_View: View {
                     }
                     
                     Button(action: {
-                        continuar = true;
-                        Actualizar(idBitacora: info_donador.id, fecha: selectedDate)
+                        if notas.isEmpty{
+                            continuar = false
+                            notas_verificar = true
+                        }
+                        else{
+                            notas_verificar = false
+                            continuar = true
+                            Actualizar(idBitacora: info_donador.id)
+                        }
                     }) {
                         HStack {
                             Spacer()
@@ -128,25 +117,24 @@ struct No_Cobrado_View: View {
                     .foregroundColor(.white)
                     .bold()
                     .cornerRadius(10)
+                    .alert(isPresented: $notas_verificar, content: {
+                        Alert(title: Text("No se agrego nota"), message: Text("Favor de agregar una nota para poder continuar"), dismissButton: .cancel())})
                     
                 }
-                 
-                NavigationLink(isActive: $continuar, destination: { Recibos_Pendientes_View() }, label: { EmptyView()})
+                
+                NavigationLink(isActive: $continuar, destination: { ContentView() }, label: { EmptyView()})
                 
                 
                 Spacer()
                 
-                .navigationBarBackButtonHidden(true)
+                    .navigationBarBackButtonHidden(true)
             }
         }
     }
     
-    func Actualizar(idBitacora:Int, fecha:Date){
-        let dateFormatter = DateFormatter()
+    func Actualizar(idBitacora:Int){
         
-        var fecha_reprogramacion = dateFormatter.string(from: fecha)
-        
-        let actualizar = Actualizar_Recibos(id_recolector: 1, estatus: "No Cobrado", fecha_reprogramacion: fecha_reprogramacion, usuario_cancelacion: estatus_cancelado, comentarios: notas)
+        let actualizar = Actualizar_Recibos(id_recolector: 1, estatus: "No Cobrado", comentarios: ("\(razon_selecionada). \(notas)"))
         
         Actualizar_Recibo(recibo: actualizar, id_bitacora: idBitacora)
     }
