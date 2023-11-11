@@ -21,7 +21,7 @@ struct Donante_View: View {
         VStack {
             if let info_donador = listaRecibos.first(where: { $0.id == donador }) {
                 
-                if (info_donador.TelMovil != "" && info_donador.TelCasa != "" && info_donador.TelOficina != ""){
+                if (info_donador.TelMovil != "0" && info_donador.TelCasa != "0" && info_donador.TelOficina != "0"){
                     
                     Header()
                     
@@ -121,8 +121,8 @@ struct Donante_View: View {
                             Text("$\(info_donador.Importe, specifier: "%.2f")")
                                 .font(
                                     Font.custom("SF Pro", size: 26)
-                                    .weight(.medium)
-                                    )
+                                        .weight(.medium)
+                                )
                                 .foregroundColor(Color(red: 0.061, green: 0.51, blue: 0.997))
                                 .frame(width: 310, alignment: .leading)
                             
@@ -191,10 +191,10 @@ struct Donante_View: View {
                     
                     NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
                     
-                Spacer()
+                    Spacer()
                 }
                 
-                else if (info_donador.TelMovil != "" && info_donador.TelCasa != "" && info_donador.TelOficina == ""){
+                else if (info_donador.TelMovil != "0" && info_donador.TelCasa != "0" && info_donador.TelOficina == "0"){
                     Header()
                     
                     Text("\(info_donador.NombreDonante) \(info_donador.ApellidoPaterno)")
@@ -283,8 +283,8 @@ struct Donante_View: View {
                             Text("$\(info_donador.Importe, specifier: "%.2f")")
                                 .font(
                                     Font.custom("SF Pro", size: 26)
-                                    .weight(.medium)
-                                    )
+                                        .weight(.medium)
+                                )
                                 .foregroundColor(Color(red: 0.061, green: 0.51, blue: 0.997))
                                 .frame(width: 310, alignment: .leading)
                             
@@ -352,10 +352,10 @@ struct Donante_View: View {
                     
                     NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
                     
-                Spacer()
+                    Spacer()
                 }
                 
-                else if (info_donador.TelMovil != "" && info_donador.TelCasa == "" && info_donador.TelOficina != ""){
+                else if (info_donador.TelMovil != "0" && info_donador.TelCasa == "0" && info_donador.TelOficina != "0"){
                     Header()
                     
                     Text("\(info_donador.NombreDonante) \(info_donador.ApellidoPaterno)")
@@ -445,8 +445,8 @@ struct Donante_View: View {
                             Text("$\(info_donador.Importe, specifier: "%.2f")")
                                 .font(
                                     Font.custom("SF Pro", size: 26)
-                                    .weight(.medium)
-                                    )
+                                        .weight(.medium)
+                                )
                                 .foregroundColor(Color(red: 0.061, green: 0.51, blue: 0.997))
                                 .frame(width: 310, alignment: .leading)
                             
@@ -515,10 +515,10 @@ struct Donante_View: View {
                     
                     NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
                     
-                Spacer()
+                    Spacer()
                 }
                 
-                else if (info_donador.TelMovil != "" && info_donador.TelCasa == "" && info_donador.TelOficina == ""){
+                else if (info_donador.TelMovil != "0" && info_donador.TelCasa == "0" && info_donador.TelOficina == "0"){
                     Header()
                     
                     Text("\(info_donador.NombreDonante) \(info_donador.ApellidoPaterno)")
@@ -600,8 +600,8 @@ struct Donante_View: View {
                             Text("$\(info_donador.Importe, specifier: "%.2f")")
                                 .font(
                                     Font.custom("SF Pro", size: 26)
-                                    .weight(.medium)
-                                    )
+                                        .weight(.medium)
+                                )
                                 .foregroundColor(Color(red: 0.061, green: 0.51, blue: 0.997))
                                 .frame(width: 310, alignment: .leading)
                             
@@ -670,7 +670,7 @@ struct Donante_View: View {
                     
                     NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
                     
-                Spacer()
+                    Spacer()
                 }
                 
             }
