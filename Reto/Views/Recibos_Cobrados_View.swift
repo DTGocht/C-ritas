@@ -39,13 +39,13 @@ struct Recibos_Cobrados_View: View {
                 
                 Spacer()
             } .padding()
-            }
-            
+        }
+        
     }
     
     func moveRecibo(from source: IndexSet, to destination: Int) {
-            listaRecibos.move(fromOffsets: source, toOffset: destination)
-        }
+        listaRecibos.move(fromOffsets: source, toOffset: destination)
+    }
 }
 
 struct Recibos_Cobrados_View_Previews: PreviewProvider {
