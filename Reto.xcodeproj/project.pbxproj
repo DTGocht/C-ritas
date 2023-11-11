@@ -1,0 +1,452 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D633FA8E2AE1CF7B00CA85A2 /* Mapa.swift in Sources */ = {isa = PBXBuildFile; fileRef = D633FA8D2AE1CF7B00CA85A2 /* Mapa.swift */; };
+		D66765182AF99F18006F60A6 /* LogInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66765172AF99F18006F60A6 /* LogInView.swift */; };
+		D667651A2AF99F69006F60A6 /* No_Cobrado_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66765192AF99F69006F60A6 /* No_Cobrado_View.swift */; };
+		D667651C2AF99F7E006F60A6 /* Cobrado_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D667651B2AF99F7E006F60A6 /* Cobrado_View.swift */; };
+		D667651E2AF99F99006F60A6 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D667651D2AF99F99006F60A6 /* SplashScreenView.swift */; };
+		D66765202AF99FB3006F60A6 /* recibos_3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D667651F2AF99FB3006F60A6 /* recibos_3.swift */; };
+		D66765222AF9A055006F60A6 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66765212AF9A055006F60A6 /* LogIn.swift */; };
+		D66C7D332AD9B655005BE93E /* Repartidores.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66C7D322AD9B655005BE93E /* Repartidores.swift */; };
+		D66C7D352AD9B67F005BE93E /* Repartidores_Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66C7D342AD9B67F005BE93E /* Repartidores_Data.swift */; };
+		D66C7D372AD9B74E005BE93E /* Tarjeta_Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66C7D362AD9B74E005BE93E /* Tarjeta_Status.swift */; };
+		D66C7D392AD9BBC3005BE93E /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66C7D382AD9BBC3005BE93E /* Header.swift */; };
+		D66C7D3B2AD9C849005BE93E /* Recibos_No_Cobrados_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66C7D3A2AD9C849005BE93E /* Recibos_No_Cobrados_View.swift */; };
+		D66C7D3D2AD9D11F005BE93E /* Recibos_Pendientes_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66C7D3C2AD9D11F005BE93E /* Recibos_Pendientes_View.swift */; };
+		D66C7D3F2ADA0CED005BE93E /* Donante_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66C7D3E2ADA0CED005BE93E /* Donante_View.swift */; };
+		D6E2972C2AD92E87005662E9 /* RetoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E2972B2AD92E87005662E9 /* RetoApp.swift */; };
+		D6E2972E2AD92E87005662E9 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E2972D2AD92E87005662E9 /* ContentView.swift */; };
+		D6E297302AD92E89005662E9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6E2972F2AD92E89005662E9 /* Assets.xcassets */; };
+		D6E297332AD92E89005662E9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6E297322AD92E89005662E9 /* Preview Assets.xcassets */; };
+		D6E2973D2AD93105005662E9 /* Tarjeta_Nombre_Verde.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E2973C2AD93105005662E9 /* Tarjeta_Nombre_Verde.swift */; };
+		D6E2973F2AD9311B005662E9 /* Tarjeta_Nombre_Rojo.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E2973E2AD9311B005662E9 /* Tarjeta_Nombre_Rojo.swift */; };
+		D6E297412AD9312D005662E9 /* Tarjeta_Nombre_Amarilla.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E297402AD9312D005662E9 /* Tarjeta_Nombre_Amarilla.swift */; };
+		D6E297432AD9319C005662E9 /* Recibos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E297422AD9319C005662E9 /* Recibos.swift */; };
+		D6E297472AD93258005662E9 /* Tarjeta_Acumulado.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E297462AD93258005662E9 /* Tarjeta_Acumulado.swift */; };
+		D6E297492AD932A4005662E9 /* Recibos_Cobrados_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E297482AD932A4005662E9 /* Recibos_Cobrados_View.swift */; };
+		D6E2974B2AD932D9005662E9 /* Recibos_Lista.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E2974A2AD932D9005662E9 /* Recibos_Lista.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D633FA8D2AE1CF7B00CA85A2 /* Mapa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapa.swift; sourceTree = "<group>"; };
+		D66765172AF99F18006F60A6 /* LogInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInView.swift; sourceTree = "<group>"; };
+		D66765192AF99F69006F60A6 /* No_Cobrado_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = No_Cobrado_View.swift; sourceTree = "<group>"; };
+		D667651B2AF99F7E006F60A6 /* Cobrado_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cobrado_View.swift; sourceTree = "<group>"; };
+		D667651D2AF99F99006F60A6 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
+		D667651F2AF99FB3006F60A6 /* recibos_3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recibos_3.swift; sourceTree = "<group>"; };
+		D66765212AF9A055006F60A6 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
+		D66C7D322AD9B655005BE93E /* Repartidores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repartidores.swift; sourceTree = "<group>"; };
+		D66C7D342AD9B67F005BE93E /* Repartidores_Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repartidores_Data.swift; sourceTree = "<group>"; };
+		D66C7D362AD9B74E005BE93E /* Tarjeta_Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tarjeta_Status.swift; sourceTree = "<group>"; };
+		D66C7D382AD9BBC3005BE93E /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		D66C7D3A2AD9C849005BE93E /* Recibos_No_Cobrados_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recibos_No_Cobrados_View.swift; sourceTree = "<group>"; };
+		D66C7D3C2AD9D11F005BE93E /* Recibos_Pendientes_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recibos_Pendientes_View.swift; sourceTree = "<group>"; };
+		D66C7D3E2ADA0CED005BE93E /* Donante_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Donante_View.swift; sourceTree = "<group>"; };
+		D6E297282AD92E87005662E9 /* Reto.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reto.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6E2972B2AD92E87005662E9 /* RetoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetoApp.swift; sourceTree = "<group>"; };
+		D6E2972D2AD92E87005662E9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D6E2972F2AD92E89005662E9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D6E297322AD92E89005662E9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D6E2973C2AD93105005662E9 /* Tarjeta_Nombre_Verde.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tarjeta_Nombre_Verde.swift; sourceTree = "<group>"; };
+		D6E2973E2AD9311B005662E9 /* Tarjeta_Nombre_Rojo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tarjeta_Nombre_Rojo.swift; sourceTree = "<group>"; };
+		D6E297402AD9312D005662E9 /* Tarjeta_Nombre_Amarilla.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tarjeta_Nombre_Amarilla.swift; sourceTree = "<group>"; };
+		D6E297422AD9319C005662E9 /* Recibos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recibos.swift; sourceTree = "<group>"; };
+		D6E297462AD93258005662E9 /* Tarjeta_Acumulado.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tarjeta_Acumulado.swift; sourceTree = "<group>"; };
+		D6E297482AD932A4005662E9 /* Recibos_Cobrados_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recibos_Cobrados_View.swift; sourceTree = "<group>"; };
+		D6E2974A2AD932D9005662E9 /* Recibos_Lista.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recibos_Lista.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D6E297252AD92E87005662E9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D6E2971F2AD92E86005662E9 = {
+			isa = PBXGroup;
+			children = (
+				D6E2972A2AD92E87005662E9 /* Reto */,
+				D6E297292AD92E87005662E9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D6E297292AD92E87005662E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D6E297282AD92E87005662E9 /* Reto.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D6E2972A2AD92E87005662E9 /* Reto */ = {
+			isa = PBXGroup;
+			children = (
+				D6E2972B2AD92E87005662E9 /* RetoApp.swift */,
+				D6E2972D2AD92E87005662E9 /* ContentView.swift */,
+				D6E297392AD9301B005662E9 /* Views */,
+				D6E2973A2AD93022005662E9 /* Componentes */,
+				D6E2973B2AD93044005662E9 /* Datos */,
+				D6E2972F2AD92E89005662E9 /* Assets.xcassets */,
+				D6E297312AD92E89005662E9 /* Preview Content */,
+			);
+			path = Reto;
+			sourceTree = "<group>";
+		};
+		D6E297312AD92E89005662E9 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				D6E297322AD92E89005662E9 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		D6E297392AD9301B005662E9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D6E297482AD932A4005662E9 /* Recibos_Cobrados_View.swift */,
+				D66C7D3A2AD9C849005BE93E /* Recibos_No_Cobrados_View.swift */,
+				D66C7D3C2AD9D11F005BE93E /* Recibos_Pendientes_View.swift */,
+				D66C7D3E2ADA0CED005BE93E /* Donante_View.swift */,
+				D66765172AF99F18006F60A6 /* LogInView.swift */,
+				D66765192AF99F69006F60A6 /* No_Cobrado_View.swift */,
+				D667651B2AF99F7E006F60A6 /* Cobrado_View.swift */,
+				D667651D2AF99F99006F60A6 /* SplashScreenView.swift */,
+				D667651F2AF99FB3006F60A6 /* recibos_3.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D6E2973A2AD93022005662E9 /* Componentes */ = {
+			isa = PBXGroup;
+			children = (
+				D6E2973C2AD93105005662E9 /* Tarjeta_Nombre_Verde.swift */,
+				D6E2973E2AD9311B005662E9 /* Tarjeta_Nombre_Rojo.swift */,
+				D6E297402AD9312D005662E9 /* Tarjeta_Nombre_Amarilla.swift */,
+				D6E297462AD93258005662E9 /* Tarjeta_Acumulado.swift */,
+				D6E2974A2AD932D9005662E9 /* Recibos_Lista.swift */,
+				D66C7D362AD9B74E005BE93E /* Tarjeta_Status.swift */,
+				D66C7D382AD9BBC3005BE93E /* Header.swift */,
+				D633FA8D2AE1CF7B00CA85A2 /* Mapa.swift */,
+			);
+			path = Componentes;
+			sourceTree = "<group>";
+		};
+		D6E2973B2AD93044005662E9 /* Datos */ = {
+			isa = PBXGroup;
+			children = (
+				D6E297422AD9319C005662E9 /* Recibos.swift */,
+				D66C7D322AD9B655005BE93E /* Repartidores.swift */,
+				D66C7D342AD9B67F005BE93E /* Repartidores_Data.swift */,
+				D66765212AF9A055006F60A6 /* LogIn.swift */,
+			);
+			path = Datos;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D6E297272AD92E87005662E9 /* Reto */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D6E297362AD92E89005662E9 /* Build configuration list for PBXNativeTarget "Reto" */;
+			buildPhases = (
+				D6E297242AD92E87005662E9 /* Sources */,
+				D6E297252AD92E87005662E9 /* Frameworks */,
+				D6E297262AD92E87005662E9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Reto;
+			productName = Reto;
+			productReference = D6E297282AD92E87005662E9 /* Reto.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D6E297202AD92E87005662E9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					D6E297272AD92E87005662E9 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+				};
+			};
+			buildConfigurationList = D6E297232AD92E87005662E9 /* Build configuration list for PBXProject "Reto" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D6E2971F2AD92E86005662E9;
+			productRefGroup = D6E297292AD92E87005662E9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D6E297272AD92E87005662E9 /* Reto */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D6E297262AD92E87005662E9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6E297332AD92E89005662E9 /* Preview Assets.xcassets in Resources */,
+				D6E297302AD92E89005662E9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D6E297242AD92E87005662E9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6E2972E2AD92E87005662E9 /* ContentView.swift in Sources */,
+				D667651C2AF99F7E006F60A6 /* Cobrado_View.swift in Sources */,
+				D66C7D3B2AD9C849005BE93E /* Recibos_No_Cobrados_View.swift in Sources */,
+				D6E297492AD932A4005662E9 /* Recibos_Cobrados_View.swift in Sources */,
+				D6E2973D2AD93105005662E9 /* Tarjeta_Nombre_Verde.swift in Sources */,
+				D66C7D332AD9B655005BE93E /* Repartidores.swift in Sources */,
+				D66C7D3F2ADA0CED005BE93E /* Donante_View.swift in Sources */,
+				D66765182AF99F18006F60A6 /* LogInView.swift in Sources */,
+				D6E297412AD9312D005662E9 /* Tarjeta_Nombre_Amarilla.swift in Sources */,
+				D66765202AF99FB3006F60A6 /* recibos_3.swift in Sources */,
+				D66C7D3D2AD9D11F005BE93E /* Recibos_Pendientes_View.swift in Sources */,
+				D6E2974B2AD932D9005662E9 /* Recibos_Lista.swift in Sources */,
+				D66C7D352AD9B67F005BE93E /* Repartidores_Data.swift in Sources */,
+				D66765222AF9A055006F60A6 /* LogIn.swift in Sources */,
+				D6E297432AD9319C005662E9 /* Recibos.swift in Sources */,
+				D66C7D372AD9B74E005BE93E /* Tarjeta_Status.swift in Sources */,
+				D667651E2AF99F99006F60A6 /* SplashScreenView.swift in Sources */,
+				D66C7D392AD9BBC3005BE93E /* Header.swift in Sources */,
+				D667651A2AF99F69006F60A6 /* No_Cobrado_View.swift in Sources */,
+				D6E2973F2AD9311B005662E9 /* Tarjeta_Nombre_Rojo.swift in Sources */,
+				D6E2972C2AD92E87005662E9 /* RetoApp.swift in Sources */,
+				D633FA8E2AE1CF7B00CA85A2 /* Mapa.swift in Sources */,
+				D6E297472AD93258005662E9 /* Tarjeta_Acumulado.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D6E297342AD92E89005662E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D6E297352AD92E89005662E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D6E297372AD92E89005662E9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Reto/Preview Content\"";
+				DEVELOPMENT_TEAM = 4D954N8MTQ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tec.mx.Reto;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D6E297382AD92E89005662E9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Reto/Preview Content\"";
+				DEVELOPMENT_TEAM = 4D954N8MTQ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = tec.mx.Reto;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D6E297232AD92E87005662E9 /* Build configuration list for PBXProject "Reto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6E297342AD92E89005662E9 /* Debug */,
+				D6E297352AD92E89005662E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D6E297362AD92E89005662E9 /* Build configuration list for PBXNativeTarget "Reto" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D6E297372AD92E89005662E9 /* Debug */,
+				D6E297382AD92E89005662E9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D6E297202AD92E87005662E9 /* Project object */;
+}
