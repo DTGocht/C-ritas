@@ -168,7 +168,7 @@ async def get_current_active_user(
 @app.post("/token", response_model=Token)
 async def login_for_access_token(user: LogIn):
     """
-    Rutina para obtener el token de acceso y verificar que el usuario exista
+    Ruta para obtener el token de acceso y verificar que el usuario exista
     :param user: Modelo LogIn
     :return: Token de acceso, tipo de token y el id del recolector (usuario)
     """
@@ -185,12 +185,7 @@ async def login_for_access_token(user: LogIn):
     )
     return {"access_token": access_token, "token_type": "bearer",
             "idRecolector": user.idRecolector}
-
-
-@app.get('/users/me', response_model=User)
-async def read_users_me(current_user: User = Depends(get_current_active_user)):
-    return current_user
-
+    
 
 @app.get('/recibosRecolector/{id_recolector}')
 async def recibos_recolector(id_recolector: int):
