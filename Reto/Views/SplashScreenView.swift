@@ -11,7 +11,7 @@ struct SplashScreenView: View {
     @State private var isActive = false
     @State private var size = 0.8
     @State private var opacity = 0.5
-
+    
     var body: some View {
         if isActive {
             LogInView()
@@ -31,7 +31,7 @@ struct SplashScreenView: View {
                         self.size = 0.9
                         self.opacity = 1.0
                     }
-
+                    
                 }
                 Spacer()
             }
@@ -44,7 +44,7 @@ struct SplashScreenView: View {
                 }
             }
         }
-        }
+    }
 }
 
 struct SplashScreenView_Previews: PreviewProvider {

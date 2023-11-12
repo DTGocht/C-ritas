@@ -8,38 +8,41 @@
 import SwiftUI
 
 struct Recibos_Pendientes_View: View {
+
     @State var listaRecibos: Array<Recibos> = []
     @State var listaRepartidores = getRepartidores()
     @State var id = 1
     
     var body: some View {
-        NavigationStack{
-            Header()
-                .offset(y: -35)
-            VStack{
-                Text("Pendientes")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .frame(width: 350, alignment: .leading)
-                List {
-                    ForEach(listaRecibos.filter { $0.Estatus == "Pendiente" && $0.idRecolector == id}) { recibo in
-                        NavigationLink(destination: Donante_View(donador: recibo.id)) {
-                            Recibos_Lista(recibo: recibo)
+        NavigationView(){
+            NavigationStack{
+                Header()
+                    //.offset(y: -35)
+                VStack{
+                    Text("Pendientes")
+                        .font(.largeTitle)
+                        .fontWeight(.bold)
+                        .frame(width: 350, alignment: .leading)
+                    List {
+                        ForEach(listaRecibos.filter { $0.Estatus == "Pendiente" && $0.idRecolector == id}) { recibo in
+                            NavigationLink(destination: Donante_View(donador: recibo.id)) {
+                                Recibos_Lista(recibo: recibo)
+                            }
                         }
+                        .onMove(perform: moveRecibo)
                     }
-                    .onMove(perform: moveRecibo)
+                    .listStyle(.inset)
+                    .onAppear(){
+                        listaRecibos = getRecibos()}
+                    .navigationBarItems(trailing: EditButton())
+                    
+                    
+                    Spacer()
+                } .padding()
+                    //.offset(y: -35)
+                    .navigationBarBackButtonHidden(true)
                 }
-                .listStyle(.inset)
-                .onAppear(){
-                    listaRecibos = getRecibos()}
-                .navigationBarItems(trailing: EditButton())
-                
-                
-                Spacer()
-            } .padding()
-                .offset(y: -35)
-                .navigationBarBackButtonHidden(true)
-            }
+        }
             
     }
     /*NavigationLink(destination: Jimena()) {JimenaView()}*/

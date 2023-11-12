@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException, Depends, status
 from pydantic import BaseModel
 from datetime import timedelta, datetime
 from fastapi.encoders import jsonable_encoder
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 import mssql_functions as sql
@@ -14,7 +14,6 @@ load_dotenv()
 SECRET_KEY = os.environ.get("SECRET_KEY")
 ALGORITHM = os.environ.get("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
-
 
 users_db = sql.obtener_usuarios()
 
@@ -36,6 +35,10 @@ class User(BaseModel):
     email: str
     hashed_password: str
     disabled: int = None
+
+
+class Recolector(BaseModel):
+    estatus_entrega: str
 
 
 class LogIn(BaseModel):
@@ -200,16 +203,14 @@ async def recibos_recolector(id_recolector: int):
     return jsonable_encoder(recibos)
 
 
-@app.get('/recibosEstatusRecolector/{id_recolector}/{estatus}')
-async def recibos_estatus_recolector(id_recolector: int, estatus: str):
+@app.get('/recibosEstatus')
+async def recibos_estatus():
     """
-    Obtiene los recibos de un recolector por estatus, cobrado o no cobrado
-    :param id_recolector:
-    :param estatus: cobrado o no cobrado
-    :return: Los recibos del recolector por estatus en formato JSON
+    Obtiene los recibos por estatus, pendiente, cobrado y no cobrado
+    :return: Regresa la cantidad de recibos por estatus
     """
-    recibos = sql.obtener_recibos_por_estatus(id_recolector, estatus)
-    return jsonable_encoder(recibos)
+    cantidad_estatus = sql.cantidad_recibos_estatus()
+    return jsonable_encoder(cantidad_estatus)
 
 
 @app.put('/actualizarRecibo/{id_bitacora}')
@@ -234,8 +235,43 @@ async def actualizar_recibo(id_bitacora: int, recibo: Recibo):
 
 @app.get('/recolectores')
 async def obtener_recolectores():
+    """
+    Obtiene los recolectores
+    :return: Una lista de los recolectores en formato JSON
+    """
     recolectores = sql.obtener_recolectores()
     return jsonable_encoder(recolectores)
+
+
+@app.get('/estatusRecolector/{id_recolector}')
+async def obtener_estatus_recolector(id_recolector: int):
+    """
+    Obtiene el estatus de entrega de un recolector
+    :param id_recolector: Identificador del recolector
+    :return: Un objeto con el estatus de entrega del recolector
+    """
+    estatus = sql.obtener_estatus_entrega_recolector(id_recolector)
+    return jsonable_encoder(estatus)
+
+
+@app.put('/actualizarEstadoRecolector/{id_recolector}')
+async def actualizar_estado_recolector(id_recolector: int,
+                                       recolector: Recolector):
+    """
+    Método para actualizar el estatus de entrega de un recolector por parte
+    del administrador
+    :param id_recolector: Identificador del recolector
+    :param recolector: Estatus de entrega del recolector
+    :return: Mensaje de éxito si se actualizó correctamente,
+    de lo contrario regresa un error
+    """
+    data = recolector.model_dump()
+    estatus_entrega = data['estatus_entrega']
+    if sql.actualizar_estado_recolector(id_recolector, estatus_entrega):
+        return {'message': 'Recibo actualizado'}
+    else:
+        raise HTTPException(status_code=500,
+                            detail='Error al actualizar recibo')
 
 
 if __name__ == '__main__':
