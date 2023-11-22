@@ -188,12 +188,23 @@ async def login_for_access_token(user: LogIn):
     
 
 @app.get('/recibosRecolector/{id_recolector}')
-async def recibos_recolector(id_recolector: int):
+async def recibos_recolector(
+    id_recolector: int,
+    current_user: UserInDB = Depends(get_current_user)
+):
     """
     Obtiene los recibos pendientes de un recolector
     :param id_recolector:
+    :param current_user: Usuario autenticado
     :return: Regresa los recibos pendientes del recolector en formato JSON
     """
+    # Verificar que el ID del recolector obtenido de la ruta coincide con el del usuario autenticado
+    if id_recolector != current_user.idRecolector:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="No tienes permisos para acceder a esta ruta",
+        )
+
     recibos = sql.obtener_recibos_pendientes(id_recolector)
     return jsonable_encoder(recibos)
 
