@@ -218,6 +218,15 @@ async def recibos_estatus():
     cantidad_estatus = sql.cantidad_recibos_estatus()
     return jsonable_encoder(cantidad_estatus)
 
+@app.get('/recibosComentarios')
+async def recibos_estatus():
+    """
+    Método para obtener la cantidad de comentarios no cobrados por su categoria
+    :return: Una lista de la cantidad de comentarios por categoria
+    """
+    cantidad_comentarios = sql.cantidad_recibos_comentarios()
+    return jsonable_encoder(cantidad_comentarios)
+
 
 @app.put('/actualizarRecibo/{id_bitacora}')
 async def actualizar_recibo(id_bitacora: int, recibo: Recibo):
