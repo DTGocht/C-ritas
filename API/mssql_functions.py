@@ -1,5 +1,4 @@
 import pyodbc as db
-import datetime
 from dotenv import load_dotenv
 import os
 
@@ -48,7 +47,7 @@ def obtener_usuarios():
 
         return usuarios
     except Exception as e:
-        return []
+        return [e]
 
 
 def obtener_recolectores():
@@ -59,18 +58,56 @@ def obtener_recolectores():
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
-        cursor.execute(
-            "SELECT ID_RECOLECTOR, NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO FROM RECOLECTORES")
-        recolectores = [{'id': row[0], 'NombreRecolector': row[1],
-                         'ApellidoPaterno': row[2], 'ApellidoMaterno': row[3]}
-                        for row in cursor.fetchall()]
-
+        cursor.execute("{CALL ObtenerRecolectores}")
+        recolectores = [{'id': row[0], 'Nombre': row[1],
+                         'ApellidoPaterno': row[2], 'ApellidoMaterno': row[3],
+                         'EstadoEntrega': row[4]} for row in cursor.fetchall()]
         cursor.close()
         conn.close()
 
         return recolectores
     except Exception as e:
-        return []
+        return [e]
+
+
+def obtener_estatus_entrega_recolector(id_recolector):
+    """
+    Método para obtener el estatus de entrega de un recolector
+    :param id_recolector:
+    :return: Objeto con el estatus de entrega del recolector
+    """
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("{CALL ObtenerEstadoEntregaRecolector(?)}", id_recolector)
+        estatus = {'EstatusEntrega': cursor.fetchone()[0]}
+
+        cursor.close()
+        conn.close()
+        return estatus
+    except Exception as e:
+        return {e}
+
+
+def actualizar_estado_recolector(id_recolector, estado):
+    """
+    Método para actualizar el estado de entrega de un recolector
+    :param id_recolector: Identificador del recolector
+    :param estado: Estado de entrega del recolector
+    :return: True si se actualizó correctamente, False en caso contrario
+    """
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("{CALL ActualizarEstadoEntrega(?, ?)}", id_recolector,
+                       estado)
+
+        cursor.commit()
+        cursor.close()
+        conn.close()
+        return True
+    except Exception as e:
+        return False
 
 
 def obtener_recibos_pendientes(id_recolector):
@@ -97,70 +134,25 @@ def obtener_recibos_pendientes(id_recolector):
 
         return recibos
     except Exception as e:
-        return e
+        return {'Error': e}
 
 
-def obtener_recibos_por_estatus(id_recolector, estatus):
-    """
-    Método para obtener los recibos cobrados o no cobrados para el día actual
-    y que se encuentran asignados al recolector
-    :param id_recolector:
-    :param estatus:
-    :return: Lista de recibos cobrados o no cobrados para el día actual
-    """
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    try:
-        cursor.execute("SELECT BP.ID_BITACORA, "
-                       " D.NOMBRE, "
-                       " D.APELLIDO_PATERNO, "
-                       " D.APELLIDO_MATERNO "
-                       " FROM DONANTES D "
-                       " LEFT JOIN DONATIVOS_DONANTE DON ON DON.ID_DONANTE = D.ID_DONANTE "
-                       " LEFT JOIN BITACORA_PAGOS BP ON BP.ID_DONATIVO = DON.ID_DONATIVO "
-                       " WHERE BP.ESTATUS = ? "
-                       " AND CAST(FECHA_COBRO AS DATE) = CAST(SYSDATETIME() AS DATE) "
-                       " AND BP.ID_RECOLECTOR = ?", estatus, id_recolector)
-        recibos_cobrados = [{'id': row[0], 'Nombre': row[1],
-                             'ApellidoPaterno': row[2],
-                             'ApellidoMaterno': row[3]}
-                            for row in cursor.fetchall()]
-        cursor.close()
-        conn.close()
-        return recibos_cobrados
-    except Exception as e:
-        return e
-
-
-def actualizar_recibo(id_bitacora, id_recolector, estatus,
-                      fecha_reprogramacion, usuario_cancelacion, comentarios):
+def actualizar_recibo(id_bitacora, id_recolector, estatus, comentarios):
     """
     Método para actualizar el estatus de un recibo en la bitácora de pagos
     :param id_bitacora:
     :param id_recolector:
     :param estatus:
-    :param fecha_reprogramacion:
-    :param usuario_cancelacion:
     :param comentarios:
     :return: True si se actualizó correctamente, False en caso contrario
     """
     conn = get_db_connection()
 
-    # Convierte la fecha a un objeto datetime
-
-    if fecha_reprogramacion != "":
-        fecha_date_reprogramacion = datetime.datetime.strptime(
-            fecha_reprogramacion, '%d/%m/%Y')
-        fecha_date_reprogramacion = fecha_date_reprogramacion.strftime('%Y-%m-%d')
-    else:
-        fecha_date_reprogramacion = None
-
     cursor = conn.cursor()
     try:
-        params = (estatus, fecha_date_reprogramacion,
-                  usuario_cancelacion, comentarios, id_bitacora,
+        params = (estatus, comentarios, id_bitacora,
                   id_recolector)
-        cursor.execute("{CALL ActualizarEstadoRecibo(?, ?, ?, ?, ?, ?)}", params)
+        cursor.execute("{CALL ActualizarEstadoRecibo(?, ?, ?, ?)}", params)
 
         cursor.commit()
         cursor.close()
@@ -170,9 +162,19 @@ def actualizar_recibo(id_bitacora, id_recolector, estatus,
         return False
 
 
-if __name__ == '__main__':
-    users = obtener_usuarios()
-    print(users)
-    recibos = obtener_recibos_pendientes(1)
-    print(recibos)
-
+def cantidad_recibos_estatus():
+    """
+    Método para obtener la cantidad de recibos pendientes, cobrados y no cobrados
+    :return: Una lista de la cantidad de recibos por estatus
+    """
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("{CALL CantidadRecibosEstatus}")
+        cantidad_recibos = [{'Estatus': row[0], 'Cantidad': row[1], 'Total': float(row[2])}
+                            for row in cursor.fetchall()]
+        cursor.close()
+        conn.close()
+        return cantidad_recibos
+    except Exception as e:
+        return e

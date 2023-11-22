@@ -4,13 +4,22 @@
 //
 //  Created by Jimena Gallegos on 13/10/23.
 //
+
 import SwiftUI
 
 struct Tarjeta_Acumulado: View {
-    @State var totalCantidad:Float = 0
+    var recolector: Recolector
     
     var body: some View {
         VStack{
+            let recibosCobrados = getRecibos(idR: recolector.idRecolector)
+            
+            let totalCantidad = recibosCobrados
+                .filter { $0.Estatus == "Cobrado"}
+                    .reduce(0) { (result, recibo) in
+                        return result + recibo.Importe
+                    }
+            
             ZStack{
                 RoundedRectangle(cornerRadius: 10)
                     .frame(width: 160, height: 90)
@@ -26,29 +35,16 @@ struct Tarjeta_Acumulado: View {
                         .font(.title)
                         .fontWeight(.semibold)
                         .foregroundColor(Color(red: 0.03, green: 0.347, blue: 0.545))
+                     
                 }
             }
         }
-        .onAppear(){
-            listaRecibos = getRecibos()
-            totalCantidad = actualizar()
-        }
-    }
-    
-    func actualizar() -> Float{
-       @State var Cantidad = listaRecibos
-            .filter { $0.Estatus == "Cobrado"}
-            .reduce(0) { (result, recibo) in
-                return result + recibo.Importe
-            }
-        
-        return Cantidad
     }
 }
 
 
 struct Tarjeta_Acumulado_Previews: PreviewProvider {
     static var previews: some View {
-        Tarjeta_Acumulado()
+        Tarjeta_Acumulado(recolector: Recolector(access_token: "", token_type: "", idRecolector: 2))
     }
 }

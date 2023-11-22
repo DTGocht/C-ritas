@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Cobrado_View: View {
     let donador: Int
-    @State var listaRecibos = getRecibos()
+    var recolector: Recolector
     @State var selectedDate: Date = Date()
     @State private var cancelado: Int = 1
     @State var continuar = false
@@ -18,6 +18,8 @@ struct Cobrado_View: View {
     var body: some View {
         NavigationStack{
             VStack{
+                var listaRecibos = getRecibos(idR: recolector.idRecolector)
+                
                 if let info_donador = listaRecibos.first(where: { $0.id == donador }) {
                     
                     Header()
@@ -81,7 +83,7 @@ struct Cobrado_View: View {
                     
                 }
                 
-                NavigationLink(isActive: $continuar, destination: {ContentView() }, label: { EmptyView()})
+                NavigationLink(isActive: $continuar, destination: {ContentView(recolector: recolector) }, label: { EmptyView()})
                 
                 
                 Spacer()
@@ -92,7 +94,7 @@ struct Cobrado_View: View {
     }
     
     func Actualizar(idBitacora:Int){
-        let actualizar = Actualizar_Recibos(id_recolector: 1, estatus: "Cobrado", comentarios: notas)
+        let actualizar = Actualizar_Recibos(id_recolector: recolector.idRecolector, estatus: "Cobrado", comentarios: notas)
         
         Actualizar_Recibo(recibo: actualizar, id_bitacora: idBitacora)
     }
@@ -100,6 +102,6 @@ struct Cobrado_View: View {
 
 struct Cobrado_View_Previews: PreviewProvider {
     static var previews: some View {
-        Cobrado_View(donador: 1)
+        Cobrado_View(donador: 1, recolector: Recolector(access_token: "", token_type: "", idRecolector: 1))
     }
 }

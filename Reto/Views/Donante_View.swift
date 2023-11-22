@@ -10,15 +10,17 @@ import SwiftUI
 
 struct Donante_View: View {
     let donador: Int
+    var recolector: Recolector
     @State var Alerta_Recibido = false
     @State var Alerta_No_Recibido = false
-    @State var listaRecibos = getRecibos()
     @State private var mostrarComentarios = false
     @State private var cobrado = false
     @State private var no_cobrado = false
     
     var body: some View {
         VStack {
+            var listaRecibos = getRecibos(idR: recolector.idRecolector)
+            
             if let info_donador = listaRecibos.first(where: { $0.id == donador }) {
                 
                 if (info_donador.TelMovil != "0" && info_donador.TelCasa != "0" && info_donador.TelOficina != "0"){
@@ -187,9 +189,9 @@ struct Donante_View: View {
                         )
                     }
                     
-                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador, recolector: recolector) }, label: { EmptyView()})
                     
-                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador, recolector: recolector) }, label: { EmptyView()})
                     
                     Spacer()
                 }
@@ -348,9 +350,9 @@ struct Donante_View: View {
                         )
                     }
                     
-                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador, recolector: recolector) }, label: { EmptyView()})
                     
-                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador, recolector: recolector) }, label: { EmptyView()})
                     
                     Spacer()
                 }
@@ -511,9 +513,9 @@ struct Donante_View: View {
                         )
                     }
                     
-                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador, recolector: recolector) }, label: { EmptyView()})
                     
-                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador, recolector: recolector) }, label: { EmptyView()})
                     
                     Spacer()
                 }
@@ -666,9 +668,9 @@ struct Donante_View: View {
                         )
                     }
                     
-                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    NavigationLink(isActive: $cobrado, destination: { Cobrado_View(donador: donador, recolector: recolector) }, label: { EmptyView()})
                     
-                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador) }, label: { EmptyView()})
+                    NavigationLink(isActive: $no_cobrado, destination: { No_Cobrado_View(donador: donador, recolector: recolector) }, label: { EmptyView()})
                     
                     Spacer()
                 }
@@ -679,6 +681,6 @@ struct Donante_View: View {
 }
 struct Donante_View_Previews: PreviewProvider {
     static var previews: some View {
-        Donante_View(donador: 1)
+        Donante_View(donador: 1, recolector: Recolector(access_token: "", token_type: "", idRecolector: 1))
     }
 }

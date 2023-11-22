@@ -5,7 +5,7 @@ struct LogInView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     @State private var isSecured: Bool = true
-    @State private var recolector: Recolector?
+    @State var recolector: Recolector
     @State private var isAuthenticate: Bool = false
     @State var isPresented: Bool = false
     @State private var opacity = 0.5
@@ -116,7 +116,7 @@ struct LogInView: View {
                     .alert(isPresented: $isPresented, content: {
                         Alert(title: Text("Credenciales Incorrectas"), message: Text("Inicio de sesión fallido. Verifica tus credenciales."),primaryButton: .default(Text("Aceptar")), secondaryButton: .destructive(Text("Cancelar")))})
                 
-                NavigationLink(isActive: $isAuthenticate, destination: { ContentView() }, label: { EmptyView()})
+                NavigationLink(isActive: $isAuthenticate, destination: { ContentView(recolector: recolector) }, label: { EmptyView()})
                 
                 Spacer()
                 Spacer()
@@ -128,7 +128,7 @@ struct LogInView: View {
         let user = User(username: username, password: password)
         recolector = VerificarUsuario(usr: user)
 
-        if recolector?.idRecolector != 0 {
+        if recolector.idRecolector != 0 {
             isAuthenticate = true
         } else {
             isPresented = true
@@ -139,6 +139,6 @@ struct LogInView: View {
 
 struct LogInView_Previews: PreviewProvider {
     static var previews: some View {
-        LogInView()
+        LogInView(recolector: Recolector(access_token: "", token_type: "", idRecolector: 1))
     }
 }

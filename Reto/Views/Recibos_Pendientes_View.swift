@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct Recibos_Pendientes_View: View {
-
+    var recolector: Recolector
     @State var listaRecibos: Array<Recibos> = []
     @State var listaRepartidores = getRepartidores()
-    @State var id = 1
+    //@State var id = 1
     
     var body: some View {
         NavigationView(){
@@ -23,9 +23,10 @@ struct Recibos_Pendientes_View: View {
                         .font(.largeTitle)
                         .fontWeight(.bold)
                         .frame(width: 350, alignment: .leading)
+                    //Text("\(recolector.idRecolector)")
                     List {
-                        ForEach(listaRecibos.filter { $0.Estatus == "Pendiente" && $0.idRecolector == id}) { recibo in
-                            NavigationLink(destination: Donante_View(donador: recibo.id)) {
+                        ForEach(listaRecibos.filter { $0.Estatus == "Pendiente" && $0.idRecolector == recolector.idRecolector}) { recibo in
+                            NavigationLink(destination: Donante_View(donador: recibo.id, recolector: recolector)) {
                                 Recibos_Lista(recibo: recibo)
                             }
                         }
@@ -33,7 +34,7 @@ struct Recibos_Pendientes_View: View {
                     }
                     .listStyle(.inset)
                     .onAppear(){
-                        listaRecibos = getRecibos()}
+                        listaRecibos = getRecibos(idR: recolector.idRecolector)}
                     .navigationBarItems(trailing: EditButton())
                     
                     
@@ -54,6 +55,6 @@ struct Recibos_Pendientes_View: View {
 
 struct Recibos_Pendientes_View_Previews: PreviewProvider {
     static var previews: some View {
-        Recibos_Pendientes_View()
+        Recibos_Pendientes_View(recolector: Recolector(access_token: "", token_type: "", idRecolector: 1))
     }
 }

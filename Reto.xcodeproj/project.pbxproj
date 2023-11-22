@@ -12,7 +12,6 @@
 		D667651A2AF99F69006F60A6 /* No_Cobrado_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66765192AF99F69006F60A6 /* No_Cobrado_View.swift */; };
 		D667651C2AF99F7E006F60A6 /* Cobrado_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = D667651B2AF99F7E006F60A6 /* Cobrado_View.swift */; };
 		D667651E2AF99F99006F60A6 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D667651D2AF99F99006F60A6 /* SplashScreenView.swift */; };
-		D66765202AF99FB3006F60A6 /* recibos_3.swift in Sources */ = {isa = PBXBuildFile; fileRef = D667651F2AF99FB3006F60A6 /* recibos_3.swift */; };
 		D66765222AF9A055006F60A6 /* LogIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66765212AF9A055006F60A6 /* LogIn.swift */; };
 		D66C7D332AD9B655005BE93E /* Repartidores.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66C7D322AD9B655005BE93E /* Repartidores.swift */; };
 		D66C7D352AD9B67F005BE93E /* Repartidores_Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66C7D342AD9B67F005BE93E /* Repartidores_Data.swift */; };
@@ -40,7 +39,6 @@
 		D66765192AF99F69006F60A6 /* No_Cobrado_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = No_Cobrado_View.swift; sourceTree = "<group>"; };
 		D667651B2AF99F7E006F60A6 /* Cobrado_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cobrado_View.swift; sourceTree = "<group>"; };
 		D667651D2AF99F99006F60A6 /* SplashScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
-		D667651F2AF99FB3006F60A6 /* recibos_3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = recibos_3.swift; sourceTree = "<group>"; };
 		D66765212AF9A055006F60A6 /* LogIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogIn.swift; sourceTree = "<group>"; };
 		D66C7D322AD9B655005BE93E /* Repartidores.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repartidores.swift; sourceTree = "<group>"; };
 		D66C7D342AD9B67F005BE93E /* Repartidores_Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repartidores_Data.swift; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 				D66765192AF99F69006F60A6 /* No_Cobrado_View.swift */,
 				D667651B2AF99F7E006F60A6 /* Cobrado_View.swift */,
 				D667651D2AF99F99006F60A6 /* SplashScreenView.swift */,
-				D667651F2AF99FB3006F60A6 /* recibos_3.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -233,7 +230,6 @@
 				D66C7D3F2ADA0CED005BE93E /* Donante_View.swift in Sources */,
 				D66765182AF99F18006F60A6 /* LogInView.swift in Sources */,
 				D6E297412AD9312D005662E9 /* Tarjeta_Nombre_Amarilla.swift in Sources */,
-				D66765202AF99FB3006F60A6 /* recibos_3.swift in Sources */,
 				D66C7D3D2AD9D11F005BE93E /* Recibos_Pendientes_View.swift in Sources */,
 				D6E2974B2AD932D9005662E9 /* Recibos_Lista.swift in Sources */,
 				D66C7D352AD9B67F005BE93E /* Repartidores_Data.swift in Sources */,

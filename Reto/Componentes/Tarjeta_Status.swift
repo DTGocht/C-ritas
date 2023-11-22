@@ -22,7 +22,11 @@ struct Tarjeta_Status: View {
                         .fontWeight(.semibold)
                         .foregroundColor(Color.gray)
                     
-                    Text("\(repatidor.estado)")
+                    /*Text("\(repatidor.estado)")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color(hue: 0.564, saturation: 0.106, brightness: 0.217))*/
+                    Text("No Entregado")
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(Color(hue: 0.564, saturation: 0.106, brightness: 0.217))
