@@ -178,21 +178,3 @@ def cantidad_recibos_estatus():
         return cantidad_recibos
     except Exception as e:
         return e
-    
-def cantidad_recibos_comentarios():
-    """
-    Método para obtener la cantidad de comentarios no cobrados por su categoria
-    :return: Una lista de la cantidad de comentarios por categoria
-    """
-    conn = get_db_connection()
-    cursor = conn.cursor()
-    try:
-        cursor.execute("{CALL ObtenerContadoresComentariosConFecha}")
-        cantidad_comentarios = [{'cantidad_total': row[0], 'contador_no_en_casa': row[1], 'contador_ya_no_vive': row[2],
-                             'contador_no_desea_ayudar': row[3], 'contador_indispuesto': row[4], 'contador_no_ubicado': row[5]}
-                            for row in cursor.fetchall()]
-        cursor.close()
-        conn.close()
-        return cantidad_comentarios
-    except Exception as e:
-        return e

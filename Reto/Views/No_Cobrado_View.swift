@@ -9,9 +9,9 @@ import SwiftUI
 
 struct No_Cobrado_View: View {
     let donador: Int
-    @State var listaRecibos = getRecibos()
+    var recolector: Recolector
     
-    var razones = ["No se encontraba en casa", "Ya no vive ahi", "No desea continuar ayudando", "Indispuesto", "No se ubicó el domicilio"]
+    var razones = ["No se encontraba en casa", "Ya no vive ahí", "No desea continuar ayudando", "Indispuesto", "No se ubicó el domicilio"]
     @State private var razon_selecionada = "No se encontraba en casa"
     @State private var notas: String = ""
     @State private var notas_verificar = false
@@ -22,6 +22,7 @@ struct No_Cobrado_View: View {
     var body: some View {
         NavigationStack{
             VStack{
+                var listaRecibos = getRecibos(idR: recolector.idRecolector, token: recolector.access_token)
                 if let info_donador = listaRecibos.first(where: { $0.id == donador }) {
                     
                     Header()
@@ -122,7 +123,7 @@ struct No_Cobrado_View: View {
                     
                 }
                 
-                NavigationLink(isActive: $continuar, destination: { ContentView() }, label: { EmptyView()})
+                NavigationLink(isActive: $continuar, destination: { ContentView(recolector: recolector) }, label: { EmptyView()})
                 
                 
                 Spacer()
@@ -134,14 +135,14 @@ struct No_Cobrado_View: View {
     
     func Actualizar(idBitacora:Int){
         
-        let actualizar = Actualizar_Recibos(id_recolector: 1, estatus: "No Cobrado", comentarios: ("\(razon_selecionada). \(notas)"))
+        let actualizar = Actualizar_Recibos(id_recolector: recolector.idRecolector, estatus: "No Cobrado", comentarios: ("\(razon_selecionada). \(notas)"))
         
-        Actualizar_Recibo(recibo: actualizar, id_bitacora: idBitacora)
+        Actualizar_Recibo(recibo: actualizar, id_bitacora: idBitacora, token: recolector.access_token)
     }
 }
 
 struct No_Cobrado_View_Previews: PreviewProvider {
     static var previews: some View {
-        No_Cobrado_View(donador: 1)
+        No_Cobrado_View(donador: 1, recolector: Recolector(access_token: "", token_type: "", idRecolector: 1))
     }
 }

@@ -7,7 +7,9 @@
 
 import SwiftUI
 struct Tarjeta_Status: View {
+    var recolector: Recolector
     @State var repatidor: Repartidores
+    @State var ActualizarEstado: ActualizarEstado
 
     var body: some View {
         VStack{
@@ -18,14 +20,21 @@ struct Tarjeta_Status: View {
                     .shadow(color: .gray, radius: 3, x: 0, y: 2)
                 
                 VStack{
-                    Text("Status ")
+                    Text("Estatus ")
                         .fontWeight(.semibold)
                         .foregroundColor(Color.gray)
                     
-                    Text("\(repatidor.estado)")
+                    /*Text("\(repatidor.estado)")
+                        .font(.title2)
+                        .fontWeight(.semibold)
+                        .foregroundColor(Color(hue: 0.564, saturation: 0.106, brightness: 0.217))*/
+                    Text("\(repatidor.EstadoEntrega)")
                         .font(.title2)
                         .fontWeight(.semibold)
                         .foregroundColor(Color(hue: 0.564, saturation: 0.106, brightness: 0.217))
+                }
+                .onAppear(){
+                    ActualizarEstado = getEstadoRecolector(idRecolector: repatidor.id, token: recolector.access_token)
                 }
             }
         }
@@ -35,6 +44,6 @@ struct Tarjeta_Status: View {
 struct Tarjeta_Status_Previews: PreviewProvider {
     static var previews: some View {
         var rep1: Repartidores = listaRepartidores[1]
-        Tarjeta_Status(repatidor: rep1)
+        Tarjeta_Status(recolector: Recolector(access_token: "", token_type: "", idRecolector: 1), repatidor: rep1, ActualizarEstado: ActualizarEstado(estatus_entrega: ""))
     }
 }

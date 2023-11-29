@@ -188,23 +188,12 @@ async def login_for_access_token(user: LogIn):
     
 
 @app.get('/recibosRecolector/{id_recolector}')
-async def recibos_recolector(
-    id_recolector: int,
-    current_user: UserInDB = Depends(get_current_user)
-):
+async def recibos_recolector(id_recolector: int):
     """
     Obtiene los recibos pendientes de un recolector
     :param id_recolector:
-    :param current_user: Usuario autenticado
     :return: Regresa los recibos pendientes del recolector en formato JSON
     """
-    # Verificar que el ID del recolector obtenido de la ruta coincide con el del usuario autenticado
-    if id_recolector != current_user.idRecolector:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="No tienes permisos para acceder a esta ruta",
-        )
-
     recibos = sql.obtener_recibos_pendientes(id_recolector)
     return jsonable_encoder(recibos)
 
@@ -217,15 +206,6 @@ async def recibos_estatus():
     """
     cantidad_estatus = sql.cantidad_recibos_estatus()
     return jsonable_encoder(cantidad_estatus)
-
-@app.get('/recibosComentarios')
-async def recibos_estatus():
-    """
-    Método para obtener la cantidad de comentarios no cobrados por su categoria
-    :return: Una lista de la cantidad de comentarios por categoria
-    """
-    cantidad_comentarios = sql.cantidad_recibos_comentarios()
-    return jsonable_encoder(cantidad_comentarios)
 
 
 @app.put('/actualizarRecibo/{id_bitacora}')

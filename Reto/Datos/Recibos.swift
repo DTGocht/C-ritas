@@ -7,38 +7,45 @@
 
 import Foundation
 
-var listaRecibos = getRecibos()
+var listaRecibos = getRecibos(idR: 1, token: "")
 
-func getRecibos() -> Array<Recibos>{
+// Access Token
+func getRecibos(idR: Int, token: String) -> Array<Recibos> {
     var pendientesList: Array<Recibos> = []
-    
-    guard let url = URL(string:"http://10.22.199.209:8082/recibosRecolector/1") else {
+
+    // Crear la URL con el token en el encabezado
+    guard let url = URL(string: "https://equipo16.tc2007b.tec.mx:8443/recibosRecolector/\(idR)") else {
         print("No pude asignar el URL del API")
         return pendientesList
     }
-    
+
+    var request = URLRequest(url: url)
+    request.httpMethod = "GET"
+
+    // Agregar el token al encabezado
+    request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+
     let group = DispatchGroup()
     group.enter()
-    
-    let task = URLSession.shared.dataTask(with: url) {
-        data, response, error in
-        
+
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
         let jsonDecoder = JSONDecoder()
-        if (data != nil){
+        if let data = data {
             do {
-                pendientesList = try jsonDecoder.decode([Recibos].self, from: data!)
+                pendientesList = try jsonDecoder.decode([Recibos].self, from: data)
             } catch {
                 print(error)
             }
             group.leave()
         }
     }
-    
+
     task.resume()
     group.wait()
     print("******** saliendo de la función")
     return pendientesList
 }
+
 
 
 struct Recibos: Codable, Identifiable{
@@ -60,7 +67,7 @@ struct Recibos: Codable, Identifiable{
 }
 
 
-func Actualizar_Recibo(recibo: Actualizar_Recibos, id_bitacora: Int){
+func Actualizar_Recibo(recibo: Actualizar_Recibos, id_bitacora: Int, token: String){
     
     let body: [String: Any] = [
         "id_recolector": recibo.id_recolector,
@@ -70,13 +77,15 @@ func Actualizar_Recibo(recibo: Actualizar_Recibos, id_bitacora: Int){
     
     let jsonData = try? JSONSerialization.data(withJSONObject: body)
     
-    guard let url = URL(string: "http://10.22.199.209:8082/actualizarRecibo/\(id_bitacora)") else{
+    guard let url = URL(string: "https://equipo16.tc2007b.tec.mx:8443/actualizarRecibo/\(id_bitacora)") else{
         print("No pude asigna el URL del API")
         return
     }
     
     var request = URLRequest(url: url)
     request.httpMethod = "PUT"
+    // Agregar el token al encabezado
+    request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
     request.setValue("\(String(describing: jsonData?.count))", forHTTPHeaderField: "Content-Length")
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     
@@ -110,57 +119,3 @@ struct Actualizar_Recibos: Codable {
     var estatus: String
     var comentarios: String
 }
-
-
-//var id_recolec = recolector_var(id_rec: 2)
-/*
- import Foundation
- 
- struct Recibos: Codable, Identifiable{
- var id: Int
- var idRecolector: Int
- var NombreDonante: String
- var ApellidoPaterno: String
- var ApellidoMaterno: String
- var Direccion: String
- var Colonia: String
- var Municipio: String
- var CP: String
- var Referencias: String
- var TelMovil: String
- var TelCasa: String
- var TelOficina: String
- var Importe: Float
- var Estatus: String
- }
- 
- 
- var listaRecibos = getRecibos()
- 
- func getRecibos() -> Array<Recibos>{
- var lista: Array<Recibos> = [
- Recibos(id: 1, idRecolector: 1, NombreDonante: "Jimena", ApellidoPaterno: "Gallegos", ApellidoMaterno: "Rongel", Direccion: "Cataluña 208", Colonia: "Nueva España", Municipio: "Monterrey", CP: "83220", Referencias: "Departamento Blanco", TelMovil: "6623076006", TelCasa: "6621020248", TelOficina: "6623076006", Importe: 550, Estatus: "Pendiente"),
- Recibos(id: 2, idRecolector: 1, NombreDonante: "Jaime", ApellidoPaterno: "Cabrera", ApellidoMaterno: "Ortiz", Direccion: "Garza Sada 23", Colonia: "Alta Vista", Municipio: "Monterrey", CP: "84223", Referencias: "Casa Azul", TelMovil: "3325506215", TelCasa: "3323007654", TelOficina: "", Importe: 230, Estatus: "Pendiente"),
- Recibos(id: 3, idRecolector: 1, NombreDonante: "Manuel", ApellidoPaterno: "Ortiz", ApellidoMaterno: "Bla", Direccion: "Rio Nasa 50", Colonia: "Colorines", Municipio: "San Pedro Garza Garcia", CP: "64710", Referencias: "Casa blanca enseguida de oxxo", TelMovil: "8110041734", TelCasa: "", TelOficina: "", Importe: 430, Estatus: "Pendiente"),
- Recibos(id: 4, idRecolector: 1, NombreDonante: "Diego", ApellidoPaterno: "Gotch", ApellidoMaterno: "", Direccion: "", Colonia: "", Municipio: "", CP: "", Referencias: "", TelMovil: "", TelCasa: "", TelOficina: "", Importe: 320, Estatus: "Cobrado"),
- Recibos(id: 5, idRecolector: 1, NombreDonante: "Luis", ApellidoPaterno: "Garza", ApellidoMaterno: "", Direccion: "", Colonia: "", Municipio: "", CP: "", Referencias: "", TelMovil: "", TelCasa: "", TelOficina: "", Importe: 200, Estatus: "Cobrado"),
- Recibos(id: 6, idRecolector: 1, NombreDonante: "Elisa", ApellidoPaterno: "Garcia", ApellidoMaterno: "", Direccion: "", Colonia: "", Municipio: "", CP: "", Referencias: "", TelMovil: "", TelCasa: "", TelOficina: "", Importe: 320, Estatus: "No Cobrado"),
- Recibos(id: 7, idRecolector: 1, NombreDonante: "Jimena", ApellidoPaterno: "Gallegos", ApellidoMaterno: "Rongel", Direccion: "Cataluña 208", Colonia: "Nueva España", Municipio: "Monterrey", CP: "83220", Referencias: "Departamento Blanco", TelMovil: "6623076006", TelCasa: "6621020248", TelOficina: "6623076006", Importe: 550, Estatus: "Pendiente"),
- Recibos(id: 8, idRecolector: 1, NombreDonante: "Jaime", ApellidoPaterno: "Cabrera", ApellidoMaterno: "Ortiz", Direccion: "Garza Sada 23", Colonia: "Alta Vista", Municipio: "Monterrey", CP: "84223", Referencias: "Casa Azul", TelMovil: "3325506215", TelCasa: "3323007654", TelOficina: "", Importe: 230, Estatus: "Pendiente"),
- Recibos(id: 9, idRecolector: 1, NombreDonante: "Manuel", ApellidoPaterno: "Ortiz", ApellidoMaterno: "Bla", Direccion: "Rio Nasa 50", Colonia: "Colorines", Municipio: "San Pedro Garza Garcia", CP: "64710", Referencias: "Casa blanca enseguida de oxxo", TelMovil: "8110041734", TelCasa: "", TelOficina: "", Importe: 430, Estatus: "Pendiente"),
- Recibos(id: 10, idRecolector: 1, NombreDonante: "Diego", ApellidoPaterno: "Gotch", ApellidoMaterno: "", Direccion: "", Colonia: "", Municipio: "", CP: "", Referencias: "", TelMovil: "", TelCasa: "", TelOficina: "", Importe: 320, Estatus: "Cobrado"),
- Recibos(id: 11, idRecolector: 1, NombreDonante: "Luis", ApellidoPaterno: "Garza", ApellidoMaterno: "", Direccion: "", Colonia: "", Municipio: "", CP: "", Referencias: "", TelMovil: "", TelCasa: "", TelOficina: "", Importe: 200, Estatus: "Cobrado"),
- Recibos(id: 12, idRecolector: 1, NombreDonante: "Elisa", ApellidoPaterno: "Garcia", ApellidoMaterno: "", Direccion: "", Colonia: "", Municipio: "", CP: "", Referencias: "", TelMovil: "", TelCasa: "", TelOficina: "", Importe: 320, Estatus: "No Cobrado"),
- Recibos(id: 13, idRecolector: 1, NombreDonante: "Jimena", ApellidoPaterno: "Gallegos", ApellidoMaterno: "Rongel", Direccion: "Cataluña 208", Colonia: "Nueva España", Municipio: "Monterrey", CP: "83220", Referencias: "Departamento Blanco", TelMovil: "6623076006", TelCasa: "6621020248", TelOficina: "6623076006", Importe: 550, Estatus: "Pendiente"),
- Recibos(id: 14, idRecolector: 1, NombreDonante: "Jaime", ApellidoPaterno: "Cabrera", ApellidoMaterno: "Ortiz", Direccion: "Garza Sada 23", Colonia: "Alta Vista", Municipio: "Monterrey", CP: "84223", Referencias: "Casa Azul", TelMovil: "3325506215", TelCasa: "3323007654", TelOficina: "", Importe: 230, Estatus: "Pendiente"),
- Recibos(id: 15, idRecolector: 1, NombreDonante: "Manuel", ApellidoPaterno: "Ortiz", ApellidoMaterno: "Bla", Direccion: "Rio Nasa 50", Colonia: "Colorines", Municipio: "San Pedro Garza Garcia", CP: "64710", Referencias: "Casa blanca enseguida de oxxo", TelMovil: "8110041734", TelCasa: "", TelOficina: "", Importe: 430, Estatus: "Pendiente"),
- Recibos(id: 16, idRecolector: 1, NombreDonante: "Diego", ApellidoPaterno: "Gotch", ApellidoMaterno: "", Direccion: "", Colonia: "", Municipio: "", CP: "", Referencias: "", TelMovil: "", TelCasa: "", TelOficina: "", Importe: 320, Estatus: "Cobrado"),
- Recibos(id: 17, idRecolector: 1, NombreDonante: "Luis", ApellidoPaterno: "Garza", ApellidoMaterno: "", Direccion: "", Colonia: "", Municipio: "", CP: "", Referencias: "", TelMovil: "", TelCasa: "", TelOficina: "", Importe: 200, Estatus: "Cobrado"),
- Recibos(id: 18, idRecolector: 1, NombreDonante: "Elisa", ApellidoPaterno: "Garcia", ApellidoMaterno: "", Direccion: "", Colonia: "", Municipio: "", CP: "", Referencias: "", TelMovil: "", TelCasa: "", TelOficina: "", Importe: 320, Estatus: "No Cobrado")
- 
- ]
- 
- return lista
- }
- */
-

@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    var recolector: Recolector
     var body: some View {
         TabView{
-            Recibos_Pendientes_View()
+            Recibos_Pendientes_View(recolector: recolector)
                 .tabItem{
                     Label("Pendientes",systemImage: "house.circle")
                 }
-            Recibos_Cobrados_View()
+            Recibos_Cobrados_View(recolector: recolector)
                 .tabItem{
                     Label("Cobrados", systemImage: "doc.richtext.fill")
                 }
-            Recibos_No_Cobrados_View()
+            Recibos_No_Cobrados_View(recolector: recolector)
                 .tabItem{
                     Label("No cobrados", systemImage: "doc.richtext.fill")
                 }
@@ -39,6 +40,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(recolector:Recolector(access_token: "", token_type: "", idRecolector: 1))
     }
 }

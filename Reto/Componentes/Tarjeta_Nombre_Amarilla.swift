@@ -26,7 +26,7 @@ struct Tarjeta_Nombre_Amarilla: View {
                     Image("loc_marker")
                         .resizable(resizingMode: .stretch)
                         .aspectRatio(contentMode: .fit)
-                        .offset(x: 8, y: 18)
+                        .offset(y: 18)
                         .frame(width: 25)
                     
                     Rectangle()
@@ -42,8 +42,10 @@ struct Tarjeta_Nombre_Amarilla: View {
                         .foregroundColor(amarilloOscuro)
                     Spacer()
                 }
+                //.padding(.leading, 5)
             }
-            .frame(width: 300)
+            .frame(width: 310)
+            .padding(.leading, 20)
             
         }
         }
