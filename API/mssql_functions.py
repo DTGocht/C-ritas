@@ -7,10 +7,10 @@ load_dotenv()
 # Definir la cadena de conexión a la base de datos
 conn_str = (
     "DRIVER={ODBC Driver 18 for SQL Server};"
-    f"SERVER={os.environ.get('SERVER')};"
-    f"DATABASE={os.environ.get('DATABASE')};"
-    f"UID={os.environ.get('UID')};"
-    f"PWD={os.environ.get('PWD')};"
+    f"SERVER={os.environ.get('serverdb')};"
+    f"DATABASE={os.environ.get('db')};"
+    f"UID={os.environ.get('userdb')};"
+    f"PWD={os.environ.get('pwdb')};"
     "TrustServerCertificate=yes"
 )
 
@@ -80,7 +80,7 @@ def obtener_estatus_entrega_recolector(id_recolector):
     cursor = conn.cursor()
     try:
         cursor.execute("{CALL ObtenerEstadoEntregaRecolector(?)}", id_recolector)
-        estatus = {'EstatusEntrega': cursor.fetchone()[0]}
+        estatus = {'estatus_entrega': cursor.fetchone()[0]}
 
         cursor.close()
         conn.close()
@@ -176,5 +176,44 @@ def cantidad_recibos_estatus():
         cursor.close()
         conn.close()
         return cantidad_recibos
+    except Exception as e:
+        return e
+
+def cantidad_recibos_comentarios():
+    """
+    Método para obtener la cantidad de comentarios no cobrados por su categoria
+    :return: Una lista de la cantidad de comentarios por categoria
+    """
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("{CALL ObtenerContadoresComentariosConFecha}")
+        cantidad_comentarios = [{'id':row[0], 'Comentarios': row[1], 'Cantidad': row[2]}
+                            for row in cursor.fetchall()]
+        cursor.close()
+        conn.close()
+        return cantidad_comentarios
+    except Exception as e:
+        return e
+
+
+def actualizar_recolector_recibo(id_bitacora, id_recolector):
+    """
+    Método para actualizar el recolector asignado a un recibo
+    :param id_bitacora:
+    :param id_recolector:
+    :return: True si se actualizó correctamente, False en caso contrario
+    """
+    conn = get_db_connection()
+
+    cursor = conn.cursor()
+    try:
+        params = (id_bitacora, id_recolector)
+        cursor.execute("{CALL ActualizarRecolectorARecibo(?, ?)}", params)
+
+        cursor.commit()
+        cursor.close()
+        conn.close()
+        return True
     except Exception as e:
         return e
