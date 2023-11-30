@@ -29,21 +29,22 @@ source venv/bin/activate
 ## Instalación de Dependencias
 ## Asegúrate de tener el entorno virtual activado
 
-# Instala las dependencias generales
 ```bash
+# Instala las dependencias generales
 pip install -r requirements.txt
 ```
 
 ## Ejecución de la Aplicación
 # A continuación, se presenta un ejemplo simple de cómo ejecutar la aplicación:
 
-# Comando de ejecución de la aplicación
 ```bash
+# Comando de ejecución de la aplicación
 python app.py
 ```
 # Recuerda desactivar el entorno virtual cuando hayas terminado:
-# Desactivar el entorno virtual
+
 ```bash
+# Desactivar el entorno virtual
 deactivate
 ```
 
