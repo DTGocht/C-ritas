@@ -4,7 +4,7 @@ from datetime import timedelta, datetime
 from fastapi.encoders import jsonable_encoder
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
-from jose import JWTError, jwt
+from jose import jwt
 import mssql_functions as sql
 from dotenv import load_dotenv
 import os
@@ -54,6 +54,11 @@ class Recibo(BaseModel):
     id_recolector: int
     estatus: str
     comentarios: str
+
+
+class Reasignar(BaseModel):
+    id_recolector: int
+    id_bitacora: int
 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -144,7 +149,7 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         if username is None:
             raise credentials_exception
         token_data = TokenData(username=username)
-    except JWTError:
+    except Exception as e:
         raise credentials_exception
     user = get_user(users_db, username=token_data.username)
     if user is None:
@@ -185,31 +190,47 @@ async def login_for_access_token(user: LogIn):
     )
     return {"access_token": access_token, "token_type": "bearer",
             "idRecolector": user.idRecolector}
-    
+
 
 @app.get('/recibosRecolector/{id_recolector}')
-async def recibos_recolector(id_recolector: int):
+async def recibos_recolector(
+        id_recolector: int,
+        current_user: UserInDB = Depends(get_current_user)
+):
     """
     Obtiene los recibos pendientes de un recolector
     :param id_recolector:
+    :param current_user: Usuario autenticado
     :return: Regresa los recibos pendientes del recolector en formato JSON
     """
+
     recibos = sql.obtener_recibos_pendientes(id_recolector)
     return jsonable_encoder(recibos)
 
 
 @app.get('/recibosEstatus')
-async def recibos_estatus():
+async def recibos_estatus(current_user: UserInDB = Depends(get_current_user)):
     """
-    Obtiene los recibos por estatus, pendiente, cobrado y no cobrado
+    Obtiene la cantidad de recibos por estatus, pendiente, cobrado y no cobrado
     :return: Regresa la cantidad de recibos por estatus
     """
     cantidad_estatus = sql.cantidad_recibos_estatus()
     return jsonable_encoder(cantidad_estatus)
 
 
+@app.get('/recibosComentarios')
+async def recibos_comentarios(current_user: UserInDB = Depends(get_current_user)):
+    """
+    Método para obtener la cantidad de comentarios no cobrados por su categoría
+    :return: Una lista de la cantidad de comentarios por categoría
+    """
+    cantidad_comentarios = sql.cantidad_recibos_comentarios()
+    return jsonable_encoder(cantidad_comentarios)
+
+
 @app.put('/actualizarRecibo/{id_bitacora}')
-async def actualizar_recibo(id_bitacora: int, recibo: Recibo):
+async def actualizar_recibo(id_bitacora: int, recibo: Recibo,
+                            current_user: UserInDB = Depends(get_current_user)):
     """
     Actualiza el estatus de un recibo
     :param id_bitacora: id del recibo a actualizar
@@ -229,7 +250,7 @@ async def actualizar_recibo(id_bitacora: int, recibo: Recibo):
 
 
 @app.get('/recolectores')
-async def obtener_recolectores():
+async def obtener_recolectores(current_user: UserInDB = Depends(get_current_user)):
     """
     Obtiene los recolectores
     :return: Una lista de los recolectores en formato JSON
@@ -239,7 +260,8 @@ async def obtener_recolectores():
 
 
 @app.get('/estatusRecolector/{id_recolector}')
-async def obtener_estatus_recolector(id_recolector: int):
+async def obtener_estatus_recolector(id_recolector: int,
+                                     current_user: UserInDB = Depends(get_current_user)):
     """
     Obtiene el estatus de entrega de un recolector
     :param id_recolector: Identificador del recolector
@@ -251,7 +273,8 @@ async def obtener_estatus_recolector(id_recolector: int):
 
 @app.put('/actualizarEstadoRecolector/{id_recolector}')
 async def actualizar_estado_recolector(id_recolector: int,
-                                       recolector: Recolector):
+                                       recolector: Recolector,
+                                       current_user: UserInDB = Depends(get_current_user)):
     """
     Método para actualizar el estatus de entrega de un recolector por parte
     del administrador
@@ -269,7 +292,31 @@ async def actualizar_estado_recolector(id_recolector: int,
                             detail='Error al actualizar recibo')
 
 
+@app.put('/reasignar')
+async def actualizar_recolector_recibo(reasignar: Reasignar,
+                                       current_user: UserInDB = Depends(get_current_user)):
+    """
+    Método para actualizar el recolector asignado a un recibo
+    del recolector
+    :param reasignar: Objeto con el id del recolector y el id del recibo
+    para reasignar el recibo a otro recolector
+    :return: Mensaje de éxito si se actualizó correctamente,
+    de lo contrario regresa un error
+    """
+
+    data = reasignar.model_dump()
+    id_bitacora = data['id_bitacora']
+    id_recolector = data['id_recolector']
+    if sql.actualizar_recolector_recibo(id_bitacora, id_recolector):
+        return {'message': 'Recibo actualizado'}
+    else:
+        raise HTTPException(status_code=500,
+                            detail='Error al actualizar recibo')
+
+
 if __name__ == '__main__':
     import uvicorn
 
-    uvicorn.run(app, port=8082, host='0.0.0.0')
+    uvicorn.run('app:app', host='0.0.0.0', port=8082,
+                ssl_keyfile='/home/certificate/equipo16_key.pem',
+                ssl_certfile='/home/certificate/equipo16.cer')
